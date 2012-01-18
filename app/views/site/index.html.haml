@@ -1,0 +1,6 @@
+- if current_user
+  HELLO #{current_user.nickname}
+  = image_tag current_user.image
+
+- else
+  HELLO, you are not signed in

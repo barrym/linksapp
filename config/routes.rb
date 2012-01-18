@@ -1,4 +1,12 @@
 Linksapp::Application.routes.draw do
+
+  match '/auth/twitter/callback' => 'site#process_twitter_callback'
+
+  devise_for :users
+
+  root :to => 'site#index'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
