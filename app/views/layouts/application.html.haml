@@ -6,7 +6,24 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    = link_to "sign out", destroy_user_session_path, :method => :delete
-    %hr
-
-    = yield
+    .topbar
+      .topbar-inner
+        .container-fluid
+          = link_to "linksapp", root_path, :class => 'brand'
+          - if user_signed_in?
+            %ul.nav
+              %li
+                %a{:href => '#'} Home
+            %p.pull-right
+              Logged in as #{current_user.nickname}
+              = link_to "sign out", destroy_user_session_path, :method => :delete
+    .container-fluid
+      .sidebar
+        .well
+          %h5 Sidebar
+          %ul
+            %li Things
+      .content
+        #alerts
+          =yield
+        #main
