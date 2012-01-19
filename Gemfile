@@ -38,3 +38,6 @@ end
 gem 'devise'
 gem 'omniauth-twitter'
 gem 'haml'
+gem 'rails-backbone'
+gem 'yajl-ruby'
+gem 'modernizr-rails'
