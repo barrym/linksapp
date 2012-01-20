@@ -1,8 +1,11 @@
 Linksapp::Application.routes.draw do
 
   match '/auth/twitter/callback' => 'site#process_twitter_callback'
+  match '/add' => 'links#add'
 
   devise_for :users
+
+  resources :links
 
   root :to => 'site#index'
 
