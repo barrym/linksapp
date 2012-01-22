@@ -1,0 +1,6 @@
+%h1 Recent links
+%ul
+- @links.each do |link|
+  %li
+    #{link_to link.title, link_path(link)} [ #{link_to 'direct', link.url} ]
+

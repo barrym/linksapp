@@ -22,4 +22,8 @@ class LinksController < ApplicationController
     @link = Link.find(params[:id])
   end
 
+  def index
+    @links = Link.order('updated_at desc')
+  end
+
 end

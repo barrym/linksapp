@@ -13,7 +13,7 @@
           - if user_signed_in?
             %ul.nav
               %li
-                %a{:href => '#'} Home
+                %a{:href => '/#'} Home
             %p.pull-right
               Logged in as #{current_user.nickname}
               = link_to "sign out", destroy_user_session_path, :method => :delete
@@ -22,7 +22,7 @@
         .well
           %h5 Sidebar
           %ul
-            %li Things
+            %li= link_to 'Links', links_path
       .content
         #alerts
           =yield
