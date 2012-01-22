@@ -2,6 +2,9 @@ class Link < ActiveRecord::Base
   belongs_to :user, :counter_cache => true
   belongs_to :source, :counter_cache => true
 
+  has_many :likes, :dependent => :destroy
+  has_many :likers, :through => :likes, :source => :user
+
   before_create :parse
 
   VIDEO_HOSTS = ['www.youtube.com']
@@ -82,6 +85,10 @@ class Link < ActiveRecord::Base
 
   def self.reparse_all!
     self.all.each {|l| l.parse;l.save!}
+  end
+
+  def liked_by?(user)
+    self.likers.include? user
   end
 
 end

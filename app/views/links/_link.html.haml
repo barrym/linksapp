@@ -1,11 +1,12 @@
 .link.preview{:class => cycle('yellow', 'green')}
-  %div
-    %h3 #{link_to link.title, link_path(link)}
-  %div
+  %h3 #{link_to link.title, link_path(link)}
+  %p
     - if link.is_video?
       = link.embed_code(:small)
-  %div
+  %p
     shared from #{link_to link.source.display_name, source_path(link.source)}
     (#{link_to 'direct', link.url, :target => '_'})
     by #{link.user.nickname}
     #{distance_of_time_in_words_to_now(link.created_at)} ago
+  - if link.likes_count
+    liked by #{pluralize(link.likes_count, 'person')}
