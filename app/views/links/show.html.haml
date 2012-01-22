@@ -1,9 +1,9 @@
-%h1= @link.title
+%h1 #{@link.title}
 %h2= link_to @link.url, @link.url
-%h3== Shared by #{@link.user.nickname}
+%h3 Shared by #{@link.user.nickname}
+%h3= link_to "More from #{@link.source.display_name}", source_path(@link.source)
 
 %ul
-  %li other links from youtube
   %li== tweet this link (attributed to #{@link.user.nickname})
   %li email this link
   %li save image to dropbox?!

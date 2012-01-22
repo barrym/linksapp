@@ -6,6 +6,7 @@ Linksapp::Application.routes.draw do
   devise_for :users
 
   resources :links
+  resources :sources
 
   root :to => 'site#index'
 

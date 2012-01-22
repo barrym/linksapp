@@ -1,0 +1,3 @@
+%ul
+  - @sources.each do |source|
+    %li #{link_to source.display_name, source_path(source)} - #{pluralize(source.links_count, "link")}
