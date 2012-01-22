@@ -1,4 +1,8 @@
 %h1 #{@link.title}
+
+- if @link.is_video?
+  = @link.embed_code(:large)
+
 %h2= link_to @link.url, @link.url
 %h3 Shared by #{@link.user.nickname}
 %h3= link_to "More from #{@link.source.display_name}", source_path(@link.source)

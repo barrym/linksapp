@@ -1,7 +1,4 @@
 %h1= @source.display_name
 
-%ul
 - @source.links.each do |link|
-  %li
-    #{link_to link.title, link_path(link)} [ #{link_to 'direct', link.url} ]
-
+  = render link

@@ -4,6 +4,8 @@ class Link < ActiveRecord::Base
 
   before_create :parse
 
+  VIDEO_HOSTS = ['www.youtube.com']
+
   def parse
     set_source
     clean_title
@@ -12,6 +14,33 @@ class Link < ActiveRecord::Base
 
   def uri
     @uri ||= URI.parse(self.url)
+  end
+
+  def params
+    @params ||= CGI.parse(self.uri.query)
+  end
+
+  def is_video?
+    VIDEO_HOSTS.include?(uri.host)
+  end
+
+  def embed_code(size = :default)
+    case uri.host
+    when 'www.youtube.com'
+      youtube_embed_code(size)
+    end
+  end
+
+  def youtube_embed_code(size)
+    case size
+    when :default
+      width, height = 420, 315
+    when :small
+      width, height = 315, 236
+    when :large
+      width, height = 630, 473
+    end
+    "<iframe width='#{width}' height='#{height}' src='http://www.youtube.com/embed/#{self.params['v'][0]}' frameborder='0' allowfullscreen></iframe>".html_safe
   end
 
   def set_source
@@ -29,8 +58,7 @@ class Link < ActiveRecord::Base
   def clean_url
     case uri.host
     when 'www.youtube.com'
-      params = CGI.parse(uri.query)
-      self.url = "#{uri.scheme}://#{uri.host}/watch?v=#{params['v'][0]}"
+      self.url = "#{uri.scheme}://#{uri.host}/watch?v=#{self.params['v'][0]}"
     end
   end
 

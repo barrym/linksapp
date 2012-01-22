@@ -1,0 +1,10 @@
+.link.preview
+  %div
+    %h3 #{link_to link.title, link_path(link)}
+  %div
+    - if link.is_video?
+      = link.embed_code(:small)
+  %div
+    shared from #{link_to link.source.display_name, source_path(link.source)}
+    (#{link_to 'direct', link.url, :target => '_'})
+    by #{link.user.nickname}
