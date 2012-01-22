@@ -8,8 +8,8 @@ class Link < ActiveRecord::Base
 
   def parse
     set_source
-    clean_title
-    clean_url
+    clean_title!
+    clean_url!
   end
 
   def uri
@@ -36,7 +36,7 @@ class Link < ActiveRecord::Base
     when :default
       width, height = 420, 315
     when :small
-      width, height = 315, 236
+      width, height = 280, 236
     when :large
       width, height = 630, 473
     end
@@ -44,22 +44,41 @@ class Link < ActiveRecord::Base
   end
 
   def set_source
-    source = Source.find_or_create_by_url(self.uri.host)
-    self.source = source
+    self.source = Source.find_or_create_by_url(self.uri.host)
   end
 
-  def clean_title
+  def clean_title!
     case uri.host
     when 'www.youtube.com'
-      self.title.gsub!(/ - YouTube/, '')
+      self.title = self.title.gsub(/ - YouTube/, '')
+    when 'boingboing.net'
+      self.title = self.title.gsub(/ - Boing Boing/, '')
+    when 'www.metafilter.com'
+      self.title = self.title.gsub(/ \| MetaFilter/, '')
+    when 'www.bbc.co.uk'
+      self.title = self.title.gsub(/^BBC.*?-\s/, '')
     end
   end
 
-  def clean_url
+  def clean_url!
+    # remove_urchin
+    puts uri.host
     case uri.host
     when 'www.youtube.com'
       self.url = "#{uri.scheme}://#{uri.host}/watch?v=#{self.params['v'][0]}"
+    when 'boingboing.net'
+      self.url = "#{uri.scheme}://#{uri.host}#{uri.path}"
     end
+  end
+
+  # def remove_urchin
+  #   cleaned_params = self.params.select {|p| p !~ /^utm_/}
+  #   qs = cleaned_params.map
+  #   self.url = "#{uri.scheme}://#{uri.host}#{uri.path}?#{qs}#{u.fragment}"
+  # end
+
+  def self.reparse_all!
+    self.all.each {|l| l.parse;l.save!}
   end
 
 end

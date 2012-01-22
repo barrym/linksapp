@@ -5,7 +5,8 @@
 
 %h2= link_to @link.url, @link.url
 %h3 Shared by #{@link.user.nickname}
-%h3= link_to "More from #{@link.source.display_name}", source_path(@link.source)
+- if @link.source.links_count > 1
+  %h3= link_to "#{pluralize(@link.source.links_count - 1, 'more link')} from #{@link.source.display_name}", source_path(@link.source)
 
 %ul
   %li== tweet this link (attributed to #{@link.user.nickname})
