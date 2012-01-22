@@ -36,6 +36,7 @@ class Link < ActiveRecord::Base
     end
   end
 
+  # TODO: this should probably be in source as well
   def youtube_embed_code(size)
     case size
     when :default
@@ -53,18 +54,10 @@ class Link < ActiveRecord::Base
   end
 
   def clean_title!
-    case uri.host
-    when 'www.youtube.com'
-      self.title = self.title.gsub(/ - YouTube/, '')
-    when 'boingboing.net'
-      self.title = self.title.gsub(/ - Boing Boing/, '')
-    when 'www.metafilter.com'
-      self.title = self.title.gsub(/ \| MetaFilter/, '')
-    when 'www.bbc.co.uk'
-      self.title = self.title.gsub(/^BBC.*?-\s/, '')
-    end
+    self.title = self.source.clean_link_title(self.title)
   end
 
+  # TODO: this should be in source
   def clean_url!
     remove_urchin
     puts uri.host

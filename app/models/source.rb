@@ -4,11 +4,20 @@ class Source < ActiveRecord::Base
 
   before_create :parse
 
-  NAME_MAPPINGS = {
+  MAPPINGS = {
     'youtube.com'    => 'YouTube',
     'metafilter.com' => 'MetaFilter',
     'boingboing.net' => 'Boing Boing',
-    'bbc.co.uk'      => 'BBC'
+    'bbc.co.uk'      => 'BBC',
+    'theverge.com'   => 'The Verge'
+  }
+
+  TITLE_CLEANUPS = {
+    'bbc.co.uk'      => {:regex => /^BBC.*?-\s/, :replacement => ''},
+    'boingboing.net' => {:regex => / - Boing Boing$/, :replacement => ''},
+    'metafilter.com' => {:regex => / \| MetaFilter$/, :replacement => ''},
+    'theverge.com'   => {:regex => / \| The Verge$/, :replacement => ''},
+    'youtube.com'    => {:regex => / - YouTube$/, :replacement => ''}
   }
 
   def display_name
@@ -20,8 +29,16 @@ class Source < ActiveRecord::Base
     set_name!
   end
 
+  def clean_link_title(title)
+    if cleanup = TITLE_CLEANUPS[self.url]
+      title.gsub(cleanup[:regex], cleanup[:replacement])
+    else
+      title
+    end
+  end
+
   def set_name!
-    self.name = NAME_MAPPINGS[self.url]
+    self.name = MAPPINGS[self.url]
   end
 
   def clean_url!
