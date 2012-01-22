@@ -8,6 +8,7 @@ Linksapp::Application.routes.draw do
 
   resources :links
   resources :sources
+  resources :users
 
   root :to => 'site#index'
 

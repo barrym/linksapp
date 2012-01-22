@@ -1,15 +1,19 @@
-%h1 #{@link.title}
+%h1
+  = link_to @link.title, @link.url
 
 - if @link.is_video?
   = @link.embed_code(:large)
 
-%h2= link_to @link.url, @link.url
-%h3 Shared by #{@link.user.nickname}
-- if @link.source.links_count > 1
-  %h3= link_to "#{pluralize(@link.source.links_count - 1, 'more link')} from #{@link.source.display_name}", source_path(@link.source)
 
-%ul
-  %li== tweet this link (attributed to #{@link.user.nickname})
-  %li email this link
-  %li save image to dropbox?!
-  %li favourite this link
+%p
+  = link_to @link.user.nickname, user_path(@link.user)
+  shared this #{distance_of_time_in_words_to_now(@link.created_at)} ago
+
+%p
+  .btn.disabled Like it
+  .btn.disabled Favourite it
+  .btn.disabled Tweet it
+  .btn.disabled Email it
+
+- if @link.source.links_count > 1
+  %h3= link_to "#{pluralize(@link.source.links_count - 1, 'other link')} from #{@link.source.display_name}", source_path(@link.source)

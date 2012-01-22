@@ -1,5 +1,5 @@
 class Link < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, :counter_cache => true
   belongs_to :source, :counter_cache => true
 
   before_create :parse
