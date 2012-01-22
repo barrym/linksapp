@@ -1,6 +1,6 @@
 class SiteController < ApplicationController
 
-  before_filter :authenticate, :except => ['process_twitter_callback']
+  before_filter :authenticate_user!, :except => ['process_twitter_callback', 'sign_up']
 
   def index
   end
@@ -18,22 +18,32 @@ class SiteController < ApplicationController
 
     if user
       sign_in_and_redirect(:user, user)
-    # elsif current_user
-    #   # not sure it'll be used if we only use twitter
-    #   current_user.authentications.create(:provider => omniauth['provider'], :uid => omniauth['uid'])
-    #   redirect_to root_url
     else
-      user = User.new(
-        :uid                => omniauth['uid'],
-        :oauth_token        => omniauth['credentials']['token'],
-        :oauth_token_secret => omniauth['credentials']['secret'],
-        :nickname           => omniauth['info']['nickname'],
-        :name               => omniauth['info']['name'],
-        :image              => omniauth['info']['image']
-      )
-      logger.info user.inspect
-      user.save!
-      sign_in_and_redirect(:user, user)
+      if params[:invite] == 'blahblahblah'
+        user = User.new(
+          :uid                => omniauth['uid'],
+          :oauth_token        => omniauth['credentials']['token'],
+          :oauth_token_secret => omniauth['credentials']['secret'],
+          :nickname           => omniauth['info']['nickname'],
+          :name               => omniauth['info']['name'],
+          :image              => omniauth['info']['image']
+        )
+        logger.info user.inspect
+        user.save!
+        sign_in_and_redirect(:user, user)
+      else
+        flash[:error] = "Sorry, the account #{omniauth['info']['nickname']} isn't registered."
+        redirect_to new_user_session_path
+      end
+    end
+  end
+
+  def sign_up
+    if params[:invite] == 'blahblahblah'
+      redirect_to "/auth/twitter?invite=blahblahblah"
+    else
+      flash[:error] = "Sorry, that invite code was not recognised."
+      redirect_to new_user_registration_path
     end
   end
 

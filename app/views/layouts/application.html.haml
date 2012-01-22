@@ -27,5 +27,8 @@
           - if flash[:notice]
             .alert-message.info
               = flash[:notice]
+          - if flash[:error]
+            .alert-message.error
+              = flash[:error]
         #main
           =yield
