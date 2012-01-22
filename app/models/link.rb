@@ -17,7 +17,12 @@ class Link < ActiveRecord::Base
   end
 
   def params
-    @params ||= CGI.parse(self.uri.query)
+    @params if @params
+    if self.uri.query
+      @params = CGI.parse(self.uri.query)
+    else
+      @params = []
+    end
   end
 
   def is_video?
@@ -61,7 +66,7 @@ class Link < ActiveRecord::Base
   end
 
   def clean_url!
-    # remove_urchin
+    remove_urchin
     puts uri.host
     case uri.host
     when 'www.youtube.com'
@@ -71,11 +76,16 @@ class Link < ActiveRecord::Base
     end
   end
 
-  # def remove_urchin
-  #   cleaned_params = self.params.select {|p| p !~ /^utm_/}
-  #   qs = cleaned_params.map
-  #   self.url = "#{uri.scheme}://#{uri.host}#{uri.path}?#{qs}#{u.fragment}"
-  # end
+  def remove_urchin
+    cleaned_params = self.params.select {|p| p !~ /^utm_/}
+    self.url = "#{uri.scheme}://#{uri.host}#{uri.path}"
+    if !cleaned_params.empty?
+      puts cleaned_params.inspect
+      qs = cleaned_params.map {|k,v| v.map{|val| "#{k}=#{CGI.escape(val)}"}}.flatten.join("&")
+      self.url = self.url + "?#{qs}"
+    end
+    self.url = self.url + uri.fragment.to_s
+  end
 
   def self.reparse_all!
     self.all.each {|l| l.parse;l.save!}
