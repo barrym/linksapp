@@ -29,12 +29,10 @@ class LinksController < ApplicationController
     @link = Link.find(params[:id])
     if @link.liked_by?(current_user)
       @link.likers.delete(current_user)
-      @liked = false
     else
       @link.likers << current_user
-      @liked = true
     end
-    respond_with(@link)
+    respond_with(@link.reload)
   end
 
 end

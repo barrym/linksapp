@@ -1,0 +1,5 @@
+- if link.likes_count && link.likes_count > 0
+  %h3 Likers
+  %p
+    - link.likers.each do |liker|
+      = image_tag liker.image, :id => "liker_#{liker.id}"

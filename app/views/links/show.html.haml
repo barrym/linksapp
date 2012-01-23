@@ -17,15 +17,23 @@
   - else
     = link_to "Like it", link_like_path(@like), :remote => true, :class => "btn", :id => 'like'
 
-  .btn.disabled Favourite it
-  .btn.disabled Tweet it
-  .btn.disabled Email it
+  :javascript
+    $('a#like').click(function() {
+      btn = $('a#like')
+      btn.toggleClass('success');
+      if(btn.html() === "Liked") {
+        btn.html('Like it');
+      } else {
+        btn.html('Liked');
+      }
+    })
 
-- if @link.likes_count
-  %h3 Likers
-  %p
-    - @link.likers.each do |liker|
-      = image_tag liker.image
+  %a.btn.disabled Favourite it
+  %a.btn.disabled Tweet it
+  %a.btn.disabled Email it
+
+#likers
+  = render :partial => 'links/likers', :locals => {:link => @link}
 
 
 - if @link.source.links_count > 1
