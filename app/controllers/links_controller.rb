@@ -2,6 +2,8 @@ class LinksController < ApplicationController
 
   before_filter :authenticate_user!
 
+  respond_to :html, :js
+
   def add
     link = Link.find_by_url(params[:url])
     if link
@@ -21,6 +23,18 @@ class LinksController < ApplicationController
 
   def index
     @links = Link.order('updated_at desc')
+  end
+
+  def like
+    @link = Link.find(params[:id])
+    if @link.liked_by?(current_user)
+      @link.likers.delete(current_user)
+      @liked = false
+    else
+      @link.likers << current_user
+      @liked = true
+    end
+    respond_with(@link)
   end
 
 end

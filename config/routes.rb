@@ -3,6 +3,7 @@ Linksapp::Application.routes.draw do
   match '/auth/twitter/callback' => 'site#process_twitter_callback'
   match '/add' => 'links#add'
   match '/site/sign_up' => 'site#sign_up'
+  match '/links/:id/like' => 'links#like', :as => 'link_like'
 
   devise_for :users
 

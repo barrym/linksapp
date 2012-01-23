@@ -4,3 +4,16 @@
     Something should probably go here.
 
 %h2 What's the deal here?
+
+
+
+:javascript
+  $(function() {
+    new Linksapp.Routers.Site();
+    Backbone.history.start();
+    if (Modernizr.websockets) {
+      console.log("websockets available");
+    } else {
+      console.log("websockets NOT available");
+    }
+  })
