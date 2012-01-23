@@ -20,17 +20,22 @@ class SiteController < ApplicationController
       sign_in_and_redirect(:user, user)
     else
       if params[:invite] == 'blahblahblah'
-        user = User.new(
-          :uid                => omniauth['uid'],
-          :oauth_token        => omniauth['credentials']['token'],
-          :oauth_token_secret => omniauth['credentials']['secret'],
-          :nickname           => omniauth['info']['nickname'],
-          :name               => omniauth['info']['name'],
-          :image              => omniauth['info']['image']
-        )
-        logger.info user.inspect
-        user.save!
-        sign_in_and_redirect(:user, user)
+        user = User.find_by_uid(omniauth['uid'])
+        if user
+          flash[:notice] = "This account has already signed up."
+          sign_in_and_redirect(:user, user)
+        else
+          user = User.new(
+            :uid                => omniauth['uid'],
+            :oauth_token        => omniauth['credentials']['token'],
+            :oauth_token_secret => omniauth['credentials']['secret'],
+            :nickname           => omniauth['info']['nickname'],
+            :name               => omniauth['info']['name'],
+            :image              => omniauth['info']['image']
+          )
+          user.save!
+          sign_in_and_redirect(:user, user)
+        end
       else
         flash[:error] = "Sorry, the account #{omniauth['info']['nickname']} isn't registered."
         redirect_to new_user_session_path
