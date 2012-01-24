@@ -2,7 +2,7 @@ class LinksController < ApplicationController
 
   before_filter :authenticate_user!
 
-  respond_to :html, :js
+  respond_to :html, :json
 
   def add
     link = Link.find_by_url(params[:url])
@@ -22,7 +22,8 @@ class LinksController < ApplicationController
   end
 
   def index
-    @links = Link.order('updated_at desc')
+    @links = Link.order('updated_at desc').includes(:source, :user)
+    respond_with @links
   end
 
   def like

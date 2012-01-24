@@ -1,0 +1,43 @@
+<script id="home-template" type="text/template">
+    <div class="hero-unit">
+        <h1>Welcome</h1>
+        <p>
+            Something should probably go here.
+        </p>
+    </div>
+    <h2>What's the deal here BACKBONE?</h2>
+</script>
+
+<script id="links-index-template" type="text/template">
+    <%% _.each(links, function(link) { %>
+        <div class="link preview">
+            <h3><a href="/#links/<%%= link.id %>"><%%= link.get('title') %></a></h3>
+            <%% if(link.get('is_video')) { %>
+                <p>
+                    <%%= link.get('embed_code').small %>
+                </p>
+            <%% } %>
+            shared from <a href="/#sources/<%%= link.get('source').id %>"><%%= link.get('source').display_name %></a>
+            by <%%= link.get('user').nickname %>
+            <%%= link.get('shared_at_in_words') %> ago
+            <%% if(link.get('is_liked')) { %>
+                <p>
+                    liked by <%%= link.get('likes_count') %>
+                </p>
+            <%% } %>
+        </div>
+    <%% }); %>
+</script>
+
+
+<script>
+$(function() {
+    new LinksApp.Routers.Site();
+    Backbone.history.start();
+    if (Modernizr.websockets) {
+      console.log("websockets available");
+    } else {
+      console.log("websockets NOT available");
+    }
+})
+</script>

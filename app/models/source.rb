@@ -57,4 +57,10 @@ class Source < ActiveRecord::Base
     url.gsub(/^www\./, '')
   end
 
+  def as_json(options = {})
+    super.merge({
+      :display_name => self.display_name
+    })
+  end
+
 end

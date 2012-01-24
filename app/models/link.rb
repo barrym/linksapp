@@ -1,4 +1,8 @@
 class Link < ActiveRecord::Base
+
+  include ActionView::Helpers::DateHelper
+  include ActionView::Helpers::TextHelper
+
   belongs_to :user, :counter_cache => true
   belongs_to :source, :counter_cache => true
 
@@ -26,6 +30,10 @@ class Link < ActiveRecord::Base
     else
       @params = []
     end
+  end
+
+  def is_liked?
+    self.likes_count && self.likes_count > 0
   end
 
   def is_video?
@@ -89,6 +97,30 @@ class Link < ActiveRecord::Base
 
   def liked_by?(user)
     self.likers.include? user
+  end
+
+  def as_json(options = {})
+    extras = {
+      :source             => self.source.as_json,
+      :user               => self.user.as_json,
+      :shared_at_in_words => distance_of_time_in_words_to_now(self.created_at),
+      :is_video           => self.is_video?,
+      :is_liked           => self.is_liked?
+    }
+    if self.is_video?
+      extras.merge!({
+        :embed_code => {
+          :small => self.embed_code(:small)
+        }
+      })
+    end
+
+    if self.is_liked?
+      extras.merge!({
+        :likes_count => pluralize(self.likes_count, 'person')
+      })
+    end
+    super.merge(extras)
   end
 
 end

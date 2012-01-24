@@ -9,16 +9,17 @@
     .topbar
       .fill
         .container
-          = link_to "linksapp", root_path, :class => 'brand'
+          = link_to "linksapp", '/#', :class => 'brand'
           - if user_signed_in?
             %ul.nav
               %li
                 %a{:href => '/#'} home
               %li
-                = link_to 'links', links_path
+                = link_to 'links', '/#links'
               %li
-                = link_to 'sources', sources_path
+                = link_to 'sources', '/#sources'
             %p.pull-right
+              = image_tag 'working.gif', :id => 'working', :style => 'display:none;'
               Logged in as #{current_user.nickname}
               = link_to "sign out", destroy_user_session_path, :method => :delete
     .container
@@ -30,5 +31,5 @@
           - if flash[:error]
             .alert-message.error
               = flash[:error]
+        =yield
         #main
-          =yield
