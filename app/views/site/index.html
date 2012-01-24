@@ -5,12 +5,21 @@
             Something should probably go here.
         </p>
     </div>
-    <h2>What's the deal here BACKBONE?</h2>
+    <h2>What's the deal here?</h2>
 </script>
 
 <script id="links-index-template" type="text/template">
-    <%% _.each(links, function(link) { %>
-        <div class="link preview">
+
+    <%%
+        var klass = 'yellow';
+        _.each(links, function(link) {
+            if(klass === 'yellow') {
+                klass = 'green';
+            } else {
+                klass = 'yellow';
+            }
+        %>
+        <div class="link preview <%%= klass %>">
             <h3><a href="/#links/<%%= link.id %>"><%%= link.get('title') %></a></h3>
             <%% if(link.get('is_video')) { %>
                 <p>
@@ -31,13 +40,13 @@
 
 
 <script>
-$(function() {
-    new LinksApp.Routers.Site();
-    Backbone.history.start();
-    if (Modernizr.websockets) {
-      console.log("websockets available");
-    } else {
-      console.log("websockets NOT available");
-    }
-})
+    $(function() {
+        new LinksApp.Routers.Site();
+        Backbone.history.start();
+        if (Modernizr.websockets) {
+          console.log("websockets available");
+        } else {
+          console.log("websockets NOT available");
+        }
+    })
 </script>
