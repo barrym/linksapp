@@ -7,7 +7,7 @@ class LinksController < ApplicationController
   def add
     link = Link.find_by_url(params[:url])
     if link
-      flash[:notice] = "This link has already been shared, a like has been added for you to the original post."
+      flash[:notice] = "This link has already been shared, a like has been added for you to the original post. THIS DOES NOT WORK."
       redirect_to link_path(link)
     else
       link = current_user.links.build(:url => params[:url], :title => params[:title], :type => 'website')
