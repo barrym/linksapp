@@ -7,9 +7,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require modernizr
-//= require underscore
-//= require backbone
-//= require backbone_rails_sync
-//= require backbone_datalink
-//= require backbone/linksapp
-//= require_tree .
+//= require_directory .
