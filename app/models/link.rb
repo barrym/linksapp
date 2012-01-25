@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Link < ActiveRecord::Base
 
   include ActionView::Helpers::DateHelper
@@ -13,10 +15,27 @@ class Link < ActiveRecord::Base
 
   VIDEO_HOSTS = ['www.youtube.com']
 
+  has_attached_file :image,
+    :styles => {
+      :thumbnail    => "280x236>",
+      :website_main => "700x700>"
+    },
+    :convert_options => {
+      :all         => '-auto-orient'
+    },
+    :storage        => :s3,
+    :bucket         => 'barrymitchelson_linksapp_us',
+    :path           => "images/:id/:style/:filename",
+    :s3_credentials => {
+      :access_key_id     => ENV['S3_KEY'],
+      :secret_access_key => ENV['S3_SECRET']
+  }
+
   def parse
     set_source
     clean_title!
     clean_url!
+    create_thumbnail
   end
 
   def uri
@@ -62,6 +81,18 @@ class Link < ActiveRecord::Base
 
   def set_source
     self.source = Source.find_or_create_by_url(self.uri.host)
+  end
+
+  def create_thumbnail
+    if is_image?
+      io = open(URI.parse(self.url))
+      def io.original_filename; base_uri.path.split('/').last; end
+      self.image = io.original_filename.blank? ? nil : io
+    end
+  end
+
+  def is_image?
+    !!(self.url =~ /\.(jpg|gif|png)$/i)
   end
 
   def clean_title!

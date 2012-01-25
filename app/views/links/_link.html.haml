@@ -1,5 +1,9 @@
 .link.preview{:class => cycle('yellow', 'green')}
-  %h3 #{link_to link.title, link_path(link)}
+  - if link.is_image?
+    %p
+      = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
+  - else
+    %h3 #{link_to link.title, link_path(link)}
   %p
     - if link.is_video?
       = link.embed_code(:small)
