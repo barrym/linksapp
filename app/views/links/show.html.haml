@@ -17,7 +17,7 @@
 
 %p
   - if current_user == @link.user
-    %a.btn.disabled#like Like it
+    %a.btn.disabled Like it
   - elsif @link.liked_by?(current_user)
     = link_to "Liked", link_like_path(@like), :remote => true, :class => "btn success", :id => 'like'
   - else
