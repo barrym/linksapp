@@ -99,6 +99,14 @@ class Link < ActiveRecord::Base
     self.likers.include? user
   end
 
+  def twitter_share_url_for(sharing_user)
+    twitter_url = "https://twitter.com/share?url=#{CGI.escape(self.url)}&text=#{self.title}&size=large"
+    if sharing_user != self.user
+      twitter_url += "&via=#{self.user.nickname}"
+    end
+    twitter_url
+  end
+
   def as_json(options = {})
     extras = {
       :source             => self.source.as_json,

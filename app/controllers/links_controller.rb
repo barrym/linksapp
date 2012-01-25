@@ -2,7 +2,7 @@ class LinksController < ApplicationController
 
   before_filter :authenticate_user!
 
-  respond_to :html, :json
+  respond_to :html, :json, :js
 
   def add
     link = Link.find_by_url(params[:url])
