@@ -8,6 +8,9 @@
 %p
   = link_to @link.user.nickname, user_path(@link.user)
   shared this #{distance_of_time_in_words_to_now(@link.created_at)} ago
+  from #{link_to(@link.source.display_name, source_path(@link.source))}
+  - if @link.source.links_count > 1
+    ( #{pluralize(@link.source.links_count - 1, 'more link')} )
 
 %p
 
@@ -42,5 +45,3 @@
   = render :partial => 'links/likers', :locals => {:link => @link}
 
 
-- if @link.source.links_count > 1
-  %h3= link_to "#{pluralize(@link.source.links_count - 1, 'other link')} from #{@link.source.display_name}", source_path(@link.source)
