@@ -19,6 +19,7 @@ class LinksController < ApplicationController
 
   def show
     @link = Link.find(params[:id])
+    respond_with @link
   end
 
   def index

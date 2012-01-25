@@ -110,7 +110,8 @@ class Link < ActiveRecord::Base
     if self.is_video?
       extras.merge!({
         :embed_code => {
-          :small => self.embed_code(:small)
+          :small => self.embed_code(:small),
+          :large => self.embed_code(:large)
         }
       })
     end

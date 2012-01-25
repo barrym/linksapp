@@ -9,7 +9,6 @@
 </script>
 
 <script id="links-index-template" type="text/template">
-
     <%%
         var klass = 'yellow';
         _.each(links, function(link) {
@@ -38,11 +37,53 @@
     <%% }); %>
 </script>
 
+<script id="links-show-template" type="text/template">
+    <h1><a href="<%%= url %>"><%%= title %></a></h1>
+    <%% if(is_video) { %>
+        <p>
+            <%%= embed_code.large %>
+        </p>
+    <%% } %>
+/* %p */
+/*   = link_to @link.user.nickname, user_path(@link.user) */
+/*   shared this #{distance_of_time_in_words_to_now(@link.created_at)} ago */
+/*  */
+/* %p */
+/*   - if current_user == @link.user */
+/*     %a.btn.disabled#like Like it */
+/*   - elsif @link.liked_by?(current_user) */
+/*     = link_to "Liked", link_like_path(@like), :remote => true, :class => "btn success", :id => 'like' */
+/*   - else */
+/*     = link_to "Like it", link_like_path(@like), :remote => true, :class => "btn", :id => 'like' */
+/*  */
+/*   :javascript */
+/*     $('a#like').click(function() { */
+/*       btn = $('a#like') */
+/*       btn.toggleClass('success'); */
+/*       if(btn.html() === "Liked") { */
+/*         btn.html('Like it'); */
+/*       } else { */
+/*         btn.html('Liked'); */
+/*       } */
+/*     }) */
+/*  */
+/*   %a.btn.disabled Favourite it */
+/*   %a.btn.disabled Tweet it */
+/*   %a.btn.disabled Email it */
+/*   %a.btn.disabled Instapaper it */
+/*  */
+/* #likers */
+/*   = render :partial => 'links/likers', :locals => {:link => @link} */
+/*  */
+/*  */
+/* - if @link.source.links_count > 1 */
+/*   %h3= link_to "#{pluralize(@link.source.links_count - 1, 'other link')} from #{@link.source.display_name}", source_path(@link.source) */
+</script>
 
 <script>
     $(function() {
-        new LinksApp.Routers.Site();
-        Backbone.history.start();
+        window.LinksAppRouter = new LinksApp.Routers.Site();
+        Backbone.history.start({pushState:true});
         if (Modernizr.websockets) {
           console.log("websockets available");
         } else {
