@@ -74,9 +74,10 @@ class Link < ActiveRecord::Base
     when :small
       width, height = 280, 236
     when :large
-      width, height = 630, 473
+      # width, height = 630, 473
+      width, height = 900, 520
     end
-    "<iframe width='#{width}' height='#{height}' src='http://www.youtube.com/embed/#{self.params['v'][0]}' frameborder='0' allowfullscreen></iframe>".html_safe
+    "<iframe width='#{width}' height='#{height}' src='http://www.youtube.com/embed/#{self.params['v'][0]}?autohide=1&hd=1&border=1&showinfo=0' frameborder='0' allowfullscreen></iframe>".html_safe
   end
 
   def set_source
