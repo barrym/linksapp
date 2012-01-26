@@ -92,7 +92,7 @@ class Link < ActiveRecord::Base
   end
 
   def is_image?
-    !!(self.url =~ /\.(jpg|gif|png)$/i)
+    !!(self.url =~ /\.(jpg|jpeg|gif|png)$/i)
   end
 
   def clean_title!
