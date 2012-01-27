@@ -2,23 +2,31 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "elements";
+
 body {
     padding-top: 50px;
-    background-color: #eee;
+    background-color: #fff;
 }
 
 .content {
-    background-color: #fff;
-    padding: 20px;
+    // background-color: #fff;
+    // padding: 20px;
     /* margin: 0 -20px; */
 }
 
 .link.preview {
-    /* border:1px solid #ccc; */
+    .drop-shadow(0, 5px, 2px, 0.2);
     /* float:left; */
     /* margin-right: 10px; */
     margin-bottom:10px;
-    padding: 10px;
+    // padding: 5px;
+    // height: 240px;
+
+
+    .inner {
+        margin: 10px;
+    }
 }
 
 .yellow {
