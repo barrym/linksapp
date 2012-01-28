@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'yajl'
 
 class Link < ActiveRecord::Base
 
@@ -59,6 +60,10 @@ class Link < ActiveRecord::Base
     VIDEO_HOSTS.include?(uri.host)
   end
 
+  def is_youtube?
+    uri.host == 'www.youtube.com'
+  end
+
   def embed_code(size = :default)
     case uri.host
     when 'www.youtube.com'
@@ -86,10 +91,17 @@ class Link < ActiveRecord::Base
 
   def create_thumbnail
     if is_image?
-      io = open(URI.parse(self.url))
+      set_image(self.url)
+    elsif is_youtube?
+      data = Yajl::Parser.parse(open(URI.parse("http://gdata.youtube.com/feeds/api/videos/#{self.params['v'][0]}?v=2&alt=jsonc")))
+      set_image(data['data']['thumbnail']['hqDefault'])
+    end
+  end
+
+  def set_image(image_url)
+      io = open(URI.parse(image_url))
       def io.original_filename; base_uri.path.split('/').last; end
       self.image = io.original_filename.blank? ? nil : io
-    end
   end
 
   def is_image?
