@@ -14,15 +14,16 @@ class Link < ActiveRecord::Base
 
   before_create :parse
 
-  VIDEO_HOSTS = ['www.youtube.com']
+  VIDEO_HOSTS = ['www.youtube.com', 'vimeo.com']
 
   has_attached_file :image,
     :styles => {
-      :thumbnail    => "280x236>",
+      :thumbnail    => "280x100^",
       :website_main => "700x700>"
     },
     :convert_options => {
-      :all         => '-auto-orient'
+      :all         => '-auto-orient',
+      :thumbnail   => "-gravity center -extent 280x100"
     },
     :storage        => :s3,
     :bucket         => 'barrymitchelson_linksapp_us',
@@ -64,11 +65,13 @@ class Link < ActiveRecord::Base
     uri.host == 'www.youtube.com'
   end
 
+  def is_vimeo?
+    uri.host == 'vimeo.com'
+  end
+
   def embed_code(size = :default)
-    case uri.host
-    when 'www.youtube.com'
-      youtube_embed_code(size)
-    end
+    return youtube_embed_code(size) if is_youtube?
+    return vimeo_embed_code(size) if is_vimeo?
   end
 
   # TODO: this should probably be in source as well
@@ -79,10 +82,17 @@ class Link < ActiveRecord::Base
     when :small
       width, height = 280, 236
     when :large
-      # width, height = 630, 473
       width, height = 900, 520
     end
     "<iframe width='#{width}' height='#{height}' src='http://www.youtube.com/embed/#{self.params['v'][0]}?autohide=1&hd=1&border=1&showinfo=0' frameborder='0' allowfullscreen></iframe>".html_safe
+  end
+
+  def vimeo_embed_code(size)
+    case size
+    when :large
+      width, height = 900, 520
+    end
+    "<iframe src=\"http://player.vimeo.com/video/#{self.vimeo_id}?title=0&byline=0&portrait=0\" width=\"#{width}\" height=\"#{height}\" frameborder=\"0\"></iframe>".html_safe
   end
 
   def set_source
@@ -95,7 +105,15 @@ class Link < ActiveRecord::Base
     elsif is_youtube?
       data = Yajl::Parser.parse(open(URI.parse("http://gdata.youtube.com/feeds/api/videos/#{self.params['v'][0]}?v=2&alt=jsonc")))
       set_image(data['data']['thumbnail']['hqDefault'])
+    elsif is_vimeo?
+      data = Yajl::Parser.parse(open(URI.parse("http://vimeo.com/api/v2/video/#{self.vimeo_id}.json")))
+      set_image(data[0]['thumbnail_large'])
     end
+  end
+
+  def vimeo_id
+    self.url =~ /vimeo\.com\/(\d*)/
+    $1
   end
 
   def set_image(image_url)
