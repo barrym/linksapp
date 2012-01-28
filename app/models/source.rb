@@ -10,7 +10,8 @@ class Source < ActiveRecord::Base
     'boingboing.net' => 'Boing Boing',
     'bbc.co.uk'      => 'BBC',
     'theverge.com'   => 'The Verge',
-    'vimeo.com'      => 'Vimeo'
+    'vimeo.com'      => 'Vimeo',
+    'guardian.co.uk' => 'The Guardian'
   }
 
   TITLE_CLEANUPS = {
@@ -19,7 +20,8 @@ class Source < ActiveRecord::Base
     'metafilter.com' => {:regex => / \| MetaFilter$/, :replacement => ''},
     'theverge.com'   => {:regex => / \| The Verge$/, :replacement => ''},
     'youtube.com'    => {:regex => / - YouTube$/, :replacement => ''},
-    'vimeo.com'      => {:regex => / on Vimeo$/, :replacement => ''}
+    'vimeo.com'      => {:regex => / on Vimeo$/, :replacement => ''},
+    'guardian.co.uk' => {:regex => /\|.+?\| The (Guardian|Observer)$/, :replacement => ''}
   }
 
   def display_name
