@@ -1,8 +1,10 @@
-%h1
+%div
   = image_tag @user.image
-  = @user.name
+  %h1
+    = @user.name
 
 %h2 Shared #{pluralize(@user.links_count, 'link')}
 
-- @user.links.each do |link|
-  = render link
+.row
+  - @user.links.each do |link|
+    = render link

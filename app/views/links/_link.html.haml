@@ -1,15 +1,21 @@
-.link.preview{:class => cycle('yellow', 'green')}
-  - if link.is_image?
-    %p
-      = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
-  - else
-    %h3 #{link_to link.title, link_path(link)}
-  %p
-    - if link.is_video?
-      = link.embed_code(:small)
-  %p
-    from #{link_to link.source.display_name, source_path(link.source)}
-    via #{link_to link.user.nickname, user_path(link.user)}
-    #{distance_of_time_in_words_to_now(link.created_at)} ago
-  - if link.is_liked?
-    liked by #{pluralize(link.likes_count, 'person')}
+.span4.link.preview
+  .inner
+    .title
+      - if link.is_image?
+        %p
+          = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
+      - elsif link.is_video?
+        - if link.image?
+          %p
+            -# %h3.video-title= link_to link.title, link_path(link)
+            = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
+      - else
+        %h3 #{link_to link.title, link_path(link)}
+
+    .details
+      = image_tag "http://#{link.source.url}/favicon.ico"
+      #{link_to link.source.display_name, source_path(link.source)}
+      #{distance_of_time_in_words_to_now(link.created_at)} ago
+      -# = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)
+    - if link.is_liked?
+      liked by #{pluralize(link.likes_count, 'person')}

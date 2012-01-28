@@ -13,7 +13,6 @@ class LinksController < ApplicationController
       link = current_user.links.build(:url => params[:url], :title => params[:title], :type => 'website')
       link.save!
       redirect_to link_path(link)
-      # render :text => "#{params[:title]} - #{uri.host} - #{uri.to_s}"
     end
   end
 

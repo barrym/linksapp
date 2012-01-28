@@ -23,7 +23,7 @@
 %p
   - if current_user != @link.user
     - if @link.liked_by?(current_user)
-      = link_to "Liked", link_like_path(@like), :remote => true, :class => "btn success", :id => 'like'
+      = link_to "Liked!", link_like_path(@like), :remote => true, :class => "btn success", :id => 'like'
     - else
       = link_to "Like it", link_like_path(@like), :remote => true, :class => "btn", :id => 'like'
 
@@ -31,10 +31,10 @@
     $('a#like').click(function() {
       btn = $('a#like')
       btn.toggleClass('success');
-      if(btn.html() === "Liked") {
+      if(btn.html() === "Liked!") {
         btn.html('Like it');
       } else {
-        btn.html('Liked');
+        btn.html('Liked!');
       }
     })
 

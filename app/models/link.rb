@@ -18,12 +18,12 @@ class Link < ActiveRecord::Base
 
   has_attached_file :image,
     :styles => {
-      :thumbnail    => "280x100^",
+      :thumbnail    => "280x140^",
       :website_main => "700x700>"
     },
     :convert_options => {
       :all         => '-auto-orient',
-      :thumbnail   => "-gravity center -extent 280x100"
+      :thumbnail   => "-gravity center -extent 280x140"
     },
     :storage        => :s3,
     :bucket         => 'barrymitchelson_linksapp_us',
