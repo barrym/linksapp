@@ -13,7 +13,8 @@
         %h3 #{link_to link.title, link_path(link)}
 
     .details
-      = image_tag "http://#{link.source.url}/favicon.ico"
+      - if link.source.icon
+        = image_tag link.source.icon
       #{link_to link.source.display_name, source_path(link.source)}
       #{distance_of_time_in_words_to_now(link.created_at)} ago
       -# = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)

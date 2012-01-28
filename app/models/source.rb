@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class Source < ActiveRecord::Base
 
   has_many :links
@@ -31,6 +33,7 @@ class Source < ActiveRecord::Base
   def parse
     clean_url!
     set_name!
+    set_favicon!
   end
 
   def clean_link_title(title)
@@ -47,6 +50,14 @@ class Source < ActiveRecord::Base
 
   def clean_url!
     self.url = self.class.clean_url(self.url)
+  end
+
+  def set_favicon!
+    icon_url = "http://#{self.url}/favicon.ico"
+    has_icon = open(URI.parse(icon_url)) rescue nil
+    if has_icon
+      self.icon = icon_url
+    end
   end
 
   def self.reparse_all!
