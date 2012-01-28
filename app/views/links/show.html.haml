@@ -15,7 +15,6 @@
     ( #{pluralize(@link.source.links_count - 1, 'more link')} )
 
 %p
-
   %a{:href => @link.twitter_share_url_for(current_user), :class => "twitter-share-button", 'data-lang' => "en"}Tweet
   :javascript
     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
@@ -40,9 +39,7 @@
 
   %a.btn.disabled Favourite it
   %a.btn.disabled Email it
-  %a.btn.disabled Instapaper it
+  = link_to "Instapaper it", "http://www.instapaper.com/hello2?url=#{CGI.escape(@link.url)}&title=#{CGI.escape(@link.title)}", :class => "btn"
 
 #likers
   = render :partial => 'links/likers', :locals => {:link => @link}
-
-
