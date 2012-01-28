@@ -34,6 +34,8 @@ class LinksController < ApplicationController
     else
       @link.likers << current_user
     end
+    @link.updated_at = Time.now
+    @link.save!
     respond_with(@link.reload)
   end
 
