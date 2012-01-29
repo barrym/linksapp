@@ -1,4 +1,4 @@
-.span4.link.preview
+.span4.link-preview
   .inner
     .title
       - if link.is_image?
@@ -7,7 +7,7 @@
       - elsif link.is_video?
         - if link.image?
           %p
-            -# %h3.video-title= link_to link.title, link_path(link)
+            %h3.video-title= link_to link.title, link_path(link)
             = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
       - else
         %h3 #{link_to link.title, link_path(link)}
@@ -18,5 +18,5 @@
       #{link_to link.source.display_name, source_path(link.source)}
       #{distance_of_time_in_words_to_now(link.created_at)} ago
       -# = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)
-    - if link.is_liked?
-      liked by #{pluralize(link.likes_count, 'person')}
+      #{pluralize(link.likes_count, 'like')}
+      #{pluralize(link.comments_count, 'comment')}

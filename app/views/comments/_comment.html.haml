@@ -1,0 +1,7 @@
+.comment
+  .user
+    = image_tag comment.user.image
+    %h3 #{comment.user.nickname}
+  .body
+    = comment.body.gsub(/\n/, "<br/>").html_safe
+  .minor #{distance_of_time_in_words_to_now(comment.created_at)} ago

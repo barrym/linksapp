@@ -12,6 +12,9 @@ class Link < ActiveRecord::Base
   has_many :likes, :dependent => :destroy
   has_many :likers, :through => :likes, :source => :user
 
+  has_many :comments, :dependent => :destroy
+  has_many :commenters, :through => :comments, :source => :user
+
   before_create :parse
 
   VIDEO_HOSTS = ['www.youtube.com', 'vimeo.com']
@@ -55,6 +58,10 @@ class Link < ActiveRecord::Base
 
   def is_liked?
     self.likes_count && self.likes_count > 0
+  end
+
+  def has_comments?
+    self.comments_count && self.comments_count > 0
   end
 
   def is_video?
@@ -162,7 +169,7 @@ class Link < ActiveRecord::Base
   end
 
   def twitter_share_url_for(sharing_user)
-    twitter_url = "https://twitter.com/share?url=#{CGI.escape(self.url)}&text=#{self.title}&size=large"
+    twitter_url = "https://twitter.com/share?url=#{CGI.escape(self.url)}&text=#{CGI.escape(self.title)}&size=large"
     if sharing_user != self.user
       twitter_url += "&via=#{self.user.nickname}"
     end

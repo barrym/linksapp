@@ -1,4 +1,4 @@
-- if link.likes_count && link.likes_count > 0
+- if link.is_liked?
   %h3 Likers
   %p
     - link.likers.each do |liker|

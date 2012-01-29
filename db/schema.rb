@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120125213530) do
+ActiveRecord::Schema.define(:version => 20120128205556) do
+
+  create_table "comments", :force => true do |t|
+    t.integer  "link_id"
+    t.integer  "user_id"
+    t.string   "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "likes", :force => true do |t|
     t.integer  "link_id"
@@ -33,6 +41,7 @@ ActiveRecord::Schema.define(:version => 20120125213530) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_uploaded_at"
+    t.integer  "comments_count"
   end
 
   add_index "links", ["url"], :name => "index_links_on_url"
@@ -68,6 +77,7 @@ ActiveRecord::Schema.define(:version => 20120125213530) do
     t.datetime "updated_at"
     t.integer  "links_count"
     t.integer  "likes_count"
+    t.integer  "comments_count"
   end
 
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
