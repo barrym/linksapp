@@ -1,45 +1,48 @@
-%h1
-  = link_to @link.title, @link.url
+.link
+  .inner
+    %h1
+      = link_to @link.title, @link.url
 
-- if @link.is_video?
-  = @link.embed_code(:large)
+    - if @link.is_video?
+      = @link.embed_code(:large)
 
-- if @link.is_image?
-  = image_tag(@link.image.url(:website_main))
+    - if @link.is_image?
+      = image_tag(@link.image.url(:website_main))
 
-%p
-  = link_to @link.user.nickname, user_path(@link.user)
-  shared this #{distance_of_time_in_words_to_now(@link.created_at)} ago
-  from #{link_to(@link.source.display_name, source_path(@link.source))}
-  - if @link.source.links_count > 1
-    ( #{pluralize(@link.source.links_count - 1, 'more link')} )
+    %p
+      = link_to @link.user.nickname, user_path(@link.user)
+      shared this #{distance_of_time_in_words_to_now(@link.created_at)} ago
+      from #{link_to(@link.source.display_name, source_path(@link.source))}
+      - if @link.source.links_count > 1
+        ( #{pluralize(@link.source.links_count - 1, 'more link')} )
 
-%p
-  %a{:href => @link.twitter_share_url_for(current_user), :class => "twitter-share-button", 'data-lang' => "en"}Tweet
-  :javascript
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+    %p
+      - if current_user != @link.user
+        - if @link.liked_by?(current_user)
+          = link_to "Liked!", link_like_path(@like), :remote => true, :class => "btn success", :id => 'like'
+        - else
+          = link_to "Like it", link_like_path(@like), :remote => true, :class => "btn", :id => 'like'
 
-%p
-  - if current_user != @link.user
-    - if @link.liked_by?(current_user)
-      = link_to "Liked!", link_like_path(@like), :remote => true, :class => "btn success", :id => 'like'
-    - else
-      = link_to "Like it", link_like_path(@like), :remote => true, :class => "btn", :id => 'like'
+      :javascript
+        $('a#like').click(function() {
+          btn = $('a#like')
+          btn.toggleClass('success');
+          if(btn.html() === "Liked!") {
+            btn.html('Like it');
+          } else {
+            btn.html('Liked!');
+          }
+        })
 
-  :javascript
-    $('a#like').click(function() {
-      btn = $('a#like')
-      btn.toggleClass('success');
-      if(btn.html() === "Liked!") {
-        btn.html('Like it');
-      } else {
-        btn.html('Liked!');
-      }
-    })
+      = link_to "Tweet", @link.twitter_share_url_for(current_user), :class => "btn popup"
+      = link_to "Instapaper", "http://www.instapaper.com/hello2?url=#{CGI.escape(@link.url)}&title=#{CGI.escape(@link.title)}", :class => "btn"
+      %a.btn.disabled Favourite
+      %a.btn.disabled Email
 
-  %a.btn.disabled Favourite it
-  %a.btn.disabled Email it
-  = link_to "Instapaper it", "http://www.instapaper.com/hello2?url=#{CGI.escape(@link.url)}&title=#{CGI.escape(@link.title)}", :class => "btn"
+    #likers
+      = render :partial => 'links/likers', :locals => {:link => @link}
 
-#likers
-  = render :partial => 'links/likers', :locals => {:link => @link}
+    #comments
+    - if @link.has_comments?
+      %h3 Comments
+      = render @link.comments
