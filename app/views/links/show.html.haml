@@ -45,11 +45,4 @@
     #comments
       = render @link.comments
     #new-comment-form
-      = image_tag current_user.image
-      = form_for(Comment.new, :url => link_comments_path(@link), :remote => true) do |f|
-        %fieldset
-          %div
-            = f.text_area :body, :rows => 4, :id => "comment-body-textarea"
-          .form-controls
-            = f.submit :class => 'btn primary', :value => "Add comment"
-
+      = render :partial => 'comments/new', :locals => {:link => @link}
