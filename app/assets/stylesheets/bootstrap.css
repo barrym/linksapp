@@ -158,7 +158,7 @@ a:hover {
 .span11 {
   width: 860px;
 }
-.span12 {
+.span12, .container {
   width: 940px;
 }
 .offset1 {
@@ -194,6 +194,60 @@ a:hover {
 .offset11 {
   margin-left: 900px;
 }
+.row-fluid {
+  width: 100%;
+  *zoom: 1;
+}
+.row-fluid:before, .row-fluid:after {
+  display: table;
+  content: "";
+}
+.row-fluid:after {
+  clear: both;
+}
+.row-fluid [class*="span"] {
+  float: left;
+  margin-left: 2.127659574%;
+}
+.row-fluid [class*="span"]:first-child {
+  margin-left: 0;
+}
+.row-fluid .span1 {
+  width: 6.382978723%;
+}
+.row-fluid .span2 {
+  width: 14.89361702%;
+}
+.row-fluid .span3 {
+  width: 23.404255317%;
+}
+.row-fluid .span4 {
+  width: 31.914893614%;
+}
+.row-fluid .span5 {
+  width: 40.425531911%;
+}
+.row-fluid .span6 {
+  width: 48.93617020799999%;
+}
+.row-fluid .span7 {
+  width: 57.446808505%;
+}
+.row-fluid .span8 {
+  width: 65.95744680199999%;
+}
+.row-fluid .span9 {
+  width: 74.468085099%;
+}
+.row-fluid .span10 {
+  width: 82.97872339599999%;
+}
+.row-fluid .span11 {
+  width: 91.489361693%;
+}
+.row-fluid .span12 {
+  width: 99.99999998999999%;
+}
 .container {
   width: 940px;
   margin-left: auto;
@@ -207,41 +261,17 @@ a:hover {
 .container:after {
   clear: both;
 }
-.fluid-container {
-  position: relative;
-  min-width: 940px;
+.container-fluid {
   padding-left: 20px;
   padding-right: 20px;
   *zoom: 1;
 }
-.fluid-container:before, .fluid-container:after {
+.container-fluid:before, .container-fluid:after {
   display: table;
   content: "";
 }
-.fluid-container:after {
+.container-fluid:after {
   clear: both;
-}
-.fluid-sidebar {
-  width: 220px;
-  margin: 0 20px 18px;
-}
-.sidebar-left {
-  padding-left: 260px;
-}
-.sidebar-right {
-  padding-right: 260px;
-}
-.sidebar-left .fluid-sidebar {
-  float: left;
-  margin-left: -240px;
-}
-.sidebar-right .fluid-sidebar {
-  float: right;
-  margin-right: -240px;
-}
-.fluid-content {
-  float: left;
-  width: 100%;
 }
 p {
   margin: 0 0 9px;
@@ -688,42 +718,6 @@ input.span11, textarea.span11, .uneditable-input.span11 {
 input.span12, textarea.span12, .uneditable-input.span12 {
   width: 930px;
 }
-select.span1 {
-  width: 70px;
-}
-select.span2 {
-  width: 150px;
-}
-select.span3 {
-  width: 230px;
-}
-select.span4 {
-  width: 310px;
-}
-select.span5 {
-  width: 390px;
-}
-select.span6 {
-  width: 470px;
-}
-select.span7 {
-  width: 550px;
-}
-select.span8 {
-  width: 630px;
-}
-select.span9 {
-  width: 710px;
-}
-select.span10 {
-  width: 790px;
-}
-select.span11 {
-  width: 870px;
-}
-select.span12 {
-  width: 950px;
-}
 input[disabled],
 select[disabled],
 textarea[disabled],
@@ -874,7 +868,7 @@ input:focus:required:invalid:focus, textarea:focus:required:invalid:focus, selec
   min-width: 16px;
   height: 18px;
   margin-right: -1px;
-  padding: 4px 4px 4px 5px;
+  padding: 4px 5px;
   font-weight: normal;
   line-height: 18px;
   color: #999999;
@@ -2376,7 +2370,7 @@ button.btn.small, input[type="submit"].btn.small {
   margin-top: 3px;
 }
 .nav-collapse.collapse {
-  height: auto !important;
+  height: auto;
 }
 .navbar .brand:hover {
   text-decoration: none;
@@ -2687,11 +2681,16 @@ button.btn.small, input[type="submit"].btn.small {
 }
 .pager a {
   display: inline-block;
-  padding: 6px 15px;
-  background-color: #f5f5f5;
+  padding: 5px 14px;
+  background-color: #fff;
+  border: 1px solid #ddd;
   -webkit-border-radius: 15px;
   -moz-border-radius: 15px;
   border-radius: 15px;
+}
+.pager a:hover {
+  text-decoration: none;
+  background-color: #f5f5f5;
 }
 .pager .next a {
   float: right;
@@ -3102,7 +3101,7 @@ a.thumbnail:hover {
   -o-transition: width 0.6s ease;
   transition: width 0.6s ease;
 }
-.progress.striped .bar {
+.progress-striped .bar {
   background-color: #62c462;
   background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(255, 255, 255, 0.15)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(255, 255, 255, 0.15)), color-stop(0.75, rgba(255, 255, 255, 0.15)), color-stop(0.75, transparent), to(transparent));
   background-image: -webkit-linear-gradient(-45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
