@@ -15,8 +15,10 @@
     .details
       = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)
       #{distance_of_time_in_words_to_now(link.created_at)} ago
-      L#{link.likes_count || 0}
-      C#{link.comments_count || 0}
+      %i.icon-heart
+      #{link.likes_count || 0}
+      %i.icon-comment
+      #{link.comments_count || 0}
       %br
       - if link.source.icon
         = image_tag link.source.icon
