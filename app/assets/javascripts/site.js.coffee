@@ -27,5 +27,23 @@ $(
             if $('#comment-submit').is(':hidden')
                 $('#comment-submit').show('blind')
 
+        $('.bookmarklet').live 'click', () ->
+            if $('#bookmarklet-help').is(':hidden')
+                $('#bookmarklet-help').show('blind')
+            return false
+
+        $('.bookmarklet').tooltip({placement:'top', title:'Drag me'})
+
+        $('#bookmarklet-help #dont-click').live 'click', () ->
+            $('body').hide 'bounce', {}, "slow", () ->
+                $('.navbar').hide()
+                $('.content').html("<div style='margin:0 auto;float:left;'><iframe width=\"640\" height=\"480\" src=\"http://www.youtube.com/embed/Nc9xq-TVyHI?autoplay=1\" frameborder=\"0\" allowfullscreen></iframe></p><h1 id='message' style='display:none;'>Bet you wish you knew this dog.</h1></div>")
+                $('body').show('blind')
+                setTimeout(
+                    () ->
+                        $('#message').show('blind')
+                    , 30000)
+            return false
+
 
 )

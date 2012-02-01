@@ -1,0 +1,1 @@
+$('#welcome').hide('blind', 'slow')

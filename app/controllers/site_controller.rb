@@ -2,9 +2,10 @@ class SiteController < ApplicationController
 
   before_filter :authenticate_user!, :except => ['process_twitter_callback', 'sign_up']
 
+  respond_to :html, :js
+
   def index
   end
-
 
   def authenticate
     if !current_user
@@ -50,6 +51,10 @@ class SiteController < ApplicationController
       flash[:error] = "Sorry, that invite code was not recognised."
       redirect_to new_user_registration_path
     end
+  end
+
+  def no_welcome
+    current_user.update_attributes :show_welcome => false
   end
 
 end

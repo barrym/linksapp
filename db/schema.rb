@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120128205556) do
+ActiveRecord::Schema.define(:version => 20120201192506) do
 
   create_table "comments", :force => true do |t|
     t.integer  "link_id"
@@ -56,8 +56,8 @@ ActiveRecord::Schema.define(:version => 20120128205556) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "",   :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "",   :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20120128205556) do
     t.integer  "links_count"
     t.integer  "likes_count"
     t.integer  "comments_count"
+    t.boolean  "show_welcome",                          :default => true
   end
 
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

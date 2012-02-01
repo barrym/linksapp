@@ -1,3 +1,21 @@
+- if current_user.show_welcome?
+  #welcome.hero-unit
+    %h1 Welcome!
+    %p
+      Sharing links is easy, just <strong>drag the button</strong> below on to your toolbar and click it when you're on a page you want to share.
+
+    %br
+    %p
+      %a.btn.bookmarklet(href="javascript:location.href='#{links_add_url}?url='+encodeURIComponent(document.location.href)+'&title='+encodeURIComponent(document.title);")Share on linksapp
+    #bookmarklet-help.alert.alert-error{:style => 'display:none'}
+      %p
+        You're an idiot. It clearly says <strong>drag</strong> the button, not click it. Or do you just click things without reading the instructions?
+      %p
+        %a#dont-click.btn Do not click this
+    %br
+    %p
+      = link_to "OK, got it. Never show me this again.", no_welcome_path, :remote => true, :class => "btn btn-success", :id => 'ok'
+
 .row
   - @links.each do |link|
     = render link
