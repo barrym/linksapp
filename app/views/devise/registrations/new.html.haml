@@ -1,7 +1,7 @@
 %h1 Enter your invite code to sign up
 %form{:method => :post, :action => '/site/sign_up'}
   %input{:type => :text, :id => :invite, :name => :invite}
-  = submit_tag "Sign up", :class => "btn primary"
+  = submit_tag "Sign up", :class => "btn btn-primary"
 
 %p
   Signups require a Twitter account. If you don't have one then #{link_to('go get one', 'http://twitter.com')}.

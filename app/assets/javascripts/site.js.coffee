@@ -23,5 +23,9 @@ $(
             $('#comment-submit').attr('disabled', 'disabled')
             $('#comment-submit').val('Posting...')
 
+        $('#comment-body-textarea').live 'click', () ->
+            if $('#comment-submit').is(':hidden')
+                $('#comment-submit').show('blind')
+
 
 )
