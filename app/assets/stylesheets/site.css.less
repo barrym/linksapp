@@ -10,6 +10,10 @@ body {
     background-image: url("bg.png");
 }
 
+/* body > .container { */
+/*     background-color: #ccffcc; */
+/* } */
+
 
 /* .navbar-inner { */
 /*     width: 920px; */
@@ -41,11 +45,29 @@ body {
 
 }
 
-.link-preview {
+.day {
+    /* background-color: #ddddff; */
+    margin-bottom: 20px;
+}
+
+.preview {
     .drop-shadow(0, 1px, 2px, 0.2);
     .rounded(5px);
-    margin-bottom:20px;
-    height: 200px;
+
+    &.media {
+        margin-bottom:20px;
+    }
+
+    &.article {
+        margin-bottom:10px;
+        line-height:20px;
+
+    }
+
+    .likes {
+        float:right;
+        .opacity(0.3);
+    }
 
     background-color: #fff;
 

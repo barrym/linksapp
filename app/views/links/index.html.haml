@@ -16,6 +16,24 @@
     %p
       = link_to "OK, got it. Never show me this again.", no_welcome_path, :remote => true, :class => "btn btn-success", :id => 'ok'
 
-.row
-  - @links.each do |link|
-    = render link
+- @links.each do |day, links|
+  .day
+    %h1
+      = day.strftime("%A")
+      %small= day.strftime("%e %b")
+    .row
+      .span12
+        .row
+          .span6
+            .row
+              - links[:article].each do |link|
+                = render link
+          .span6
+            .row
+              - links[:media].each do |link|
+                = render link
+
+
+-# .row
+-#   - @links.each do |link|
+-#     = render link

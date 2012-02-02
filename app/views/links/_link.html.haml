@@ -1,25 +1,40 @@
-.span3.link-preview
-  .inner
-    .title
-      - if link.is_image?
-        %p
-          = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
-      - elsif link.is_video?
-        - if link.image?
-          .video
-            %h3= link_to link.title, link_path(link)
+- if link.is_media?
+  .span3.preview.media
+    .inner
+      .title
+        - if link.is_image?
+          %p
             = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
-      - else
-        %h3 #{link_to link.title, link_path(link)}
-
-    .details
-      = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)
-      #{distance_of_time_in_words_to_now(link.created_at)} ago
-      %i.icon-heart
-      #{link.likes_count || 0}
-      %i.icon-comment
-      #{link.comments_count || 0}
-      %br
-      - if link.source.icon
-        = image_tag link.source.icon
-      #{link_to link.source.display_name, source_path(link.source)}
+        - elsif link.is_video?
+          - if link.image?
+            .video
+              %h3= link_to link.title, link_path(link)
+              = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
+      .details
+        = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)
+        #{distance_of_time_in_words_to_now(link.created_at)} ago
+        .likes
+          %i.icon-heart
+          #{link.likes_count || 0}
+          %i.icon-comment
+          #{link.comments_count || 0}
+        -# %br
+        -# - if link.source.icon
+        -#   = image_tag link.source.icon
+        -# #{link_to link.source.display_name, source_path(link.source)}
+- else
+  .span6.preview.article
+    .inner
+      -# = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)
+      =link_to link.title, link_path(link)
+      .details
+        #{link_to(link.user.nickname, user_path(link.user))} shared this
+        #{distance_of_time_in_words_to_now(link.created_at)} ago
+        .likes
+          %i.icon-heart
+          #{link.likes_count || 0}
+          %i.icon-comment
+          #{link.comments_count || 0}
+        -# - if link.source.icon
+        -#   = image_tag link.source.icon
+        -# #{link_to link.source.display_name, source_path(link.source)}

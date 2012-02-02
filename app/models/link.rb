@@ -36,6 +36,20 @@ class Link < ActiveRecord::Base
       :secret_access_key => ENV['S3_SECRET']
   }
 
+  def self.by_day
+    result = {}
+    Link.order('updated_at desc').includes(:source, :user).each do |link|
+      time = link.updated_at.at_beginning_of_day
+      result[time] ||= {:media => [], :article => []}
+      if link.is_image? || link.is_video?
+        result[time][:media] << link
+      else
+        result[time][:article] << link
+      end
+    end
+    result
+  end
+
   def parse
     set_source
     clean_title!
@@ -63,6 +77,10 @@ class Link < ActiveRecord::Base
 
   def has_comments?
     self.comments_count && self.comments_count > 0
+  end
+
+  def is_media?
+    is_video? || is_image?
   end
 
   def set_image_video
