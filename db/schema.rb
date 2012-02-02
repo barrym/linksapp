@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120201192506) do
+ActiveRecord::Schema.define(:version => 20120202192138) do
 
   create_table "comments", :force => true do |t|
     t.integer  "link_id"
@@ -42,6 +42,8 @@ ActiveRecord::Schema.define(:version => 20120201192506) do
     t.integer  "image_file_size"
     t.datetime "image_uploaded_at"
     t.integer  "comments_count"
+    t.boolean  "is_video",           :default => false
+    t.boolean  "is_image",           :default => false
   end
 
   add_index "links", ["url"], :name => "index_links_on_url"

@@ -40,6 +40,7 @@ class Link < ActiveRecord::Base
     set_source
     clean_title!
     clean_url!
+    set_image_video
     create_thumbnail
   end
 
@@ -64,8 +65,9 @@ class Link < ActiveRecord::Base
     self.comments_count && self.comments_count > 0
   end
 
-  def is_video?
-    VIDEO_HOSTS.include?(uri.host)
+  def set_image_video
+    self.is_video = VIDEO_HOSTS.include?(uri.host)
+    self.is_image = !!(self.url =~ /\.(jpg|jpeg|gif|png)$/i)
   end
 
   def is_youtube?
@@ -129,10 +131,6 @@ class Link < ActiveRecord::Base
       self.image = io.original_filename.blank? ? nil : io
   end
 
-  def is_image?
-    !!(self.url =~ /\.(jpg|jpeg|gif|png)$/i)
-  end
-
   def clean_title!
     self.title = self.source.clean_link_title(self.title)
   end
@@ -140,7 +138,6 @@ class Link < ActiveRecord::Base
   # TODO: this should be in source
   def clean_url!
     remove_urchin
-    puts uri.host
     case uri.host
     when 'www.youtube.com'
       self.url = "#{uri.scheme}://#{uri.host}/watch?v=#{self.params['v'][0]}"
@@ -153,7 +150,6 @@ class Link < ActiveRecord::Base
     cleaned_params = self.params.select {|p| p !~ /^utm_/}
     self.url = "#{uri.scheme}://#{uri.host}#{uri.path}"
     if !cleaned_params.empty?
-      puts cleaned_params.inspect
       qs = cleaned_params.map {|k,v| v.map{|val| "#{k}=#{CGI.escape(val)}"}}.flatten.join("&")
       self.url = self.url + "?#{qs}"
     end
