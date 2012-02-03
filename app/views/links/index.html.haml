@@ -27,13 +27,26 @@
           .span6
             .row
               - links[:article].each do |link|
-                = render link
+                .span6.preview.article
+                  .inner
+                    %h4=link_to link.title, link_path(link)
+                    .details
+                      #{link_to(link.user.nickname, user_path(link.user))} shared this
+                      #{distance_of_time_in_words_to_now(link.created_at)} ago
+                      .likes
+                        %i.icon-heart
+                        #{link.likes_count || 0}
+                        %i.icon-comment
+                        #{link.comments_count || 0}
           .span6
-            .row
+            %ul.thumbnails
               - links[:media].each do |link|
-                = render link
+                %li.span2
+                  .thumbnail
+                    - if link.is_video?
+                      .video
+                        %h4= link_to link.title, link_path(link)
+                        = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
+                    - else
+                      = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
 
-
--# .row
--#   - @links.each do |link|
--#     = render link

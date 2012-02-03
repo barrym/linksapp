@@ -6,10 +6,9 @@
           %p
             = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
         - elsif link.is_video?
-          - if link.image?
-            .video
-              %h3= link_to link.title, link_path(link)
-              = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
+          .video
+            %h3= link_to link.title, link_path(link)
+            = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
       .details
         = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)
         #{distance_of_time_in_words_to_now(link.created_at)} ago
@@ -26,7 +25,7 @@
   .span6.preview.article
     .inner
       -# = link_to image_tag(link.user.image, :class => 'small'), user_path(link.user)
-      =link_to link.title, link_path(link)
+      %h4=link_to link.title, link_path(link)
       .details
         #{link_to(link.user.nickname, user_path(link.user))} shared this
         #{distance_of_time_in_words_to_now(link.created_at)} ago
