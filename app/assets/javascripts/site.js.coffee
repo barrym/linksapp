@@ -23,6 +23,9 @@ $(
             $('#comment-submit').attr('disabled', 'disabled')
             $('#comment-submit').val('Posting...')
 
+        $(document).on 'ajax:beforeSend', 'a#like', () ->
+            $('a#like').attr('disabled', 'disabled')
+
         $(document).on 'click', '#comment-body-textarea', () ->
             if $('#comment-submit').is(':hidden')
                 $('#comment-submit').show('blind')

@@ -27,16 +27,4 @@ class LinksController < ApplicationController
     respond_with @links
   end
 
-  def like
-    @link = Link.find(params[:id])
-    if @link.liked_by?(current_user)
-      @link.likers.delete(current_user)
-    else
-      @link.likers << current_user
-    end
-    @link.updated_at = Time.now
-    @link.save!
-    respond_with(@link.reload)
-  end
-
 end
