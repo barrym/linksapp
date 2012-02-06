@@ -18,23 +18,23 @@ $(
                     $('#new-comment-form #errors').show()
                 return false
 
-        $('#new-comment-form').bind 'ajax:beforeSend', () ->
+        $(document).on 'ajax:beforeSend', '#new-comment-form', () ->
             $('#comment-body-textarea').attr('disabled','disabled')
             $('#comment-submit').attr('disabled', 'disabled')
             $('#comment-submit').val('Posting...')
 
-        $('#comment-body-textarea').live 'click', () ->
+        $(document).on 'click', '#comment-body-textarea', () ->
             if $('#comment-submit').is(':hidden')
                 $('#comment-submit').show('blind')
 
-        $('.bookmarklet').live 'click', () ->
+        $('.bookmarklet').on 'click', () ->
             if $('#bookmarklet-help').is(':hidden')
                 $('#bookmarklet-help').show('blind')
             return false
 
         $('.bookmarklet').tooltip({placement:'top', title:'Drag me'})
 
-        $('#bookmarklet-help #dont-click').live 'click', () ->
+        $('#bookmarklet-help #dont-click').on 'click', () ->
             $('body').hide 'bounce', {}, "slow", () ->
                 $('.navbar').hide()
                 $('.content').html("<div style='margin:0 auto;float:left;'><iframe width=\"640\" height=\"480\" src=\"http://www.youtube.com/embed/Nc9xq-TVyHI?autoplay=1\" frameborder=\"0\" allowfullscreen></iframe></p><h1 id='message' style='display:none;'>Bet you wish you knew this dog.</h1></div>")
