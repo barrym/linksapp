@@ -36,11 +36,14 @@
       .content
         #alerts
           - if flash[:notice]
-            .alert-message.info
+            .alert.alert-info
               = flash[:notice]
           - if flash[:error]
-            .alert-message.error
+            .alert.alert-error
               = flash[:error]
+          - if flash[:success]
+            .alert.alert-success
+              = flash[:success]
         #main
           =yield
 

@@ -2,10 +2,9 @@ Linksapp::Application.routes.draw do
 
   match '/auth/twitter/callback' => 'site#process_twitter_callback'
   match '/add' => 'links#add', :as => 'links_add'
-  match '/site/sign_up' => 'site#sign_up'
   match '/site/no_welcome' => 'site#no_welcome', :as => 'no_welcome'
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "users"}
 
   resources :links do
     resources :comments

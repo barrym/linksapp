@@ -15,42 +15,50 @@ class SiteController < ApplicationController
 
   def process_twitter_callback
     omniauth = request.env["omniauth.auth"]
-    user = User.find_by_uid(omniauth['uid'])
 
-    if user
-      sign_in_and_redirect(:user, user)
-    else
-      if params[:invite] == 'blahblahblah'
-        user = User.find_by_uid(omniauth['uid'])
-        if user
-          flash[:notice] = "This account has already signed up."
-          sign_in_and_redirect(:user, user)
-        else
-          user = User.new(
-            :uid                => omniauth['uid'],
-            :oauth_token        => omniauth['credentials']['token'],
-            :oauth_token_secret => omniauth['credentials']['secret'],
-            :nickname           => omniauth['info']['nickname'],
-            :name               => omniauth['info']['name'],
-            :image              => omniauth['info']['image']
-          )
-          user.save!
-          sign_in_and_redirect(:user, user)
-        end
+    case params[:type]
+    when 'link_account'
+    when 'signin'
+      user = User.find_by_twitter_uid(omniauth['uid'])
+
+      if user
+        flash[:success] = "Successfully signed in."
+        sign_in_and_redirect(:user, user)
       else
-        flash[:error] = "Sorry, the account #{omniauth['info']['nickname']} isn't registered."
+        flash[:error] = "Sorry, the Twitter user #{omniauth['info']['nickname']} isn't linked to any accounts."
         redirect_to new_user_session_path
       end
-    end
-  end
-
-  def sign_up
-    if params[:invite] == 'blahblahblah'
-      redirect_to "/auth/twitter?invite=blahblahblah"
     else
-      flash[:error] = "Sorry, that invite code was not recognised."
-      redirect_to new_user_registration_path
+      render :text => params
     end
+
+    # user = User.find_by_uid(omniauth['uid'])
+
+    # if user
+    #   sign_in_and_redirect(:user, user)
+    # else
+    #   if params[:invite] == 'blahblahblah'
+    #     user = User.find_by_uid(omniauth['uid'])
+    #     if user
+    #       flash[:notice] = "This account has already signed up."
+    #       sign_in_and_redirect(:user, user)
+    #     else
+    #       user = User.new(
+    #         :uid                => omniauth['uid'],
+    #         :oauth_token        => omniauth['credentials']['token'],
+    #         :oauth_token_secret => omniauth['credentials']['secret'],
+    #         :nickname           => omniauth['info']['nickname'],
+    #         :name               => omniauth['info']['name'],
+    #         :image              => omniauth['info']['image']
+    #       )
+    #       user.save!
+    #       sign_in_and_redirect(:user, user)
+    #     end
+    #   else
+    #     flash[:error] = "Sorry, the account #{omniauth['info']['nickname']} isn't registered."
+    #     redirect_to new_user_session_path
+    #   end
+    # end
   end
 
   def no_welcome
