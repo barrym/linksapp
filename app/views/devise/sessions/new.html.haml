@@ -1,7 +1,4 @@
-%h2 Sign in
-%p= link_to image_tag('sign-in-with-twitter-l.png'), '/auth/twitter?type=signin'
-
-= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => 'form-horizontal') do |f|
+= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => {:class => 'form-horizontal signin'}) do |f|
   %fieldset
     .control-group
       = f.label :email
@@ -15,13 +12,19 @@
 
     -if devise_mapping.rememberable?
       .control-group
-        = f.check_box :remember_me
         = f.label :remember_me
+        .controls
+          = f.check_box :remember_me
 
     .control-group
       .controls
         = submit_tag "Sign in", :class => "btn btn-primary"
 
-%p
-  or
-  = link_to 'sign up.', new_user_registration_path
+.alert.alert-info
+  %h4.alert-heading Sign in using Twitter
+  %p
+    If you've linked your account all you need to do is press this button.
+  %p
+    %a{:href => '/auth/twitter?type=signin', :class => 'btn btn-twitter'}
+      = image_tag('bird_16_blue.png')
+      Sign in

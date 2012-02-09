@@ -44,6 +44,9 @@
           - if flash[:success]
             .alert.alert-success
               = flash[:success]
+          - if flash[:alert] && flash[:alert] != 'You need to sign in or sign up before continuing.'
+            .alert.alert-error
+              = flash[:alert]
         #main
           =yield
 
