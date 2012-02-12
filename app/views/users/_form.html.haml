@@ -1,0 +1,21 @@
+.control-group{:class => (error_on(@user, :email) ? 'error' :'')}
+  = label_tag :email, nil, :class => 'control-label'
+  .controls
+    = text_field_tag :email, @user.email, :autofocus => true
+    - if error_on(@user, :email)
+      %span.help-inline
+        = errors_for(@user, :email)
+.control-group{:class => (error_on(@user, :nickname) ? 'error' :'')}
+  = label_tag :nickname, nil, :class => 'control-label'
+  .controls
+    = text_field_tag :nickname, @user.nickname
+    - if error_on(@user, :nickname)
+      %span.help-inline
+        = errors_for(@user, :nickname)
+.control-group{:class => (error_on(@user, :password) ? 'error' :'')}
+  = label_tag :password, nil, :class => 'control-label'
+  .controls
+    = password_field_tag :password, @user.password
+    - if error_on(@user, :password)
+      %span.help-inline
+        = errors_for(@user, :password)

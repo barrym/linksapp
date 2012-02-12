@@ -1,0 +1,13 @@
+%h1 Edit
+
+- unless @user.errors.blank?
+  .alert.alert-error
+    %strong Oops!
+    Some errors occurred.
+
+= form_tag(user_path(@user), :method => :put, :multipart => true, :class => 'form-horizontal') do
+  %fieldset
+    = render :partial => 'users/form'
+    .control-group
+      .controls
+        = submit_tag "Save", :class => "btn btn-primary"

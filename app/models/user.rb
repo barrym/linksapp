@@ -6,9 +6,10 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :commented_links, :through => :comments, :source => :comment # TODO: these aren't unique when returned
 
-  validates_presence_of :email, :nickname, :password
+  validates_presence_of :email, :nickname
   validates_uniqueness_of :email
   validate :invite_code_is_valid
+  validate :password_validation
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -21,6 +22,12 @@ class User < ActiveRecord::Base
   def invite_code_is_valid
     if self.invite_code != 'blahblahblah'
       errors.add(:invite_code, 'is invalid')
+    end
+  end
+
+  def password_validation
+    if new_record?
+      errors.add(:password, "can't be blank") if self.password.blank?
     end
   end
 

@@ -22,7 +22,6 @@ class SiteController < ApplicationController
       user = User.find_by_twitter_uid(omniauth['uid'])
 
       if user
-        flash[:success] = "Successfully signed in."
         sign_in_and_redirect(:user, user)
       else
         flash[:error] = "Sorry, the Twitter user #{omniauth['info']['nickname']} isn't linked to any accounts."
