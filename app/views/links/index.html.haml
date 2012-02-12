@@ -6,7 +6,7 @@
 
     %br
     %p
-      %a.btn.bookmarklet(href="javascript:location.href='#{links_add_url}?url='+encodeURIComponent(document.location.href)+'&title='+encodeURIComponent(document.title);")Share on linksapp
+      %a.btn.bookmarklet(href="javascript:function la(){ var d=document,s=d.createElement('scr'+'ipt'),b=d.body; try { if(!b)throw(0); s.setAttribute('src', '#{links_add_url}'); b.appendChild(s); } catch(e) { alert('You need to let the page load first'); } } la();")Share on linksapp
     #bookmarklet-help.alert.alert-error{:style => 'display:none'}
       %p
         You're an idiot. It clearly says <strong>drag</strong> the button, not click it. Or do you just click things without reading the instructions?
