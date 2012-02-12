@@ -9,14 +9,19 @@ class UsersController < ApplicationController
   end
 
   def create
-    logger.info session
     @user = User.new(
       :email       => params[:email],
       :nickname    => params[:nickname],
       :password    => params[:password],
-      :invite_code => params[:invite_code],
-      :avatar      => params[:avatar]
+      :invite_code => params[:invite_code]
     )
+
+    if !params[:avatar_url].blank?
+      @user.set_avatar_from_url(params[:avatar_url])
+    elsif params[:avatar]
+      @user.avatar = params[:avatar]
+    end
+
     if @user.valid?
       @user.save!
       sign_in_and_redirect(:user, @user)
@@ -42,8 +47,6 @@ class UsersController < ApplicationController
     elsif params[:avatar]
       attr.merge!(:avatar => params[:avatar])
     end
-
-    logger.info attr.inspect
 
     @user.attributes = attr
     if @user.valid?
