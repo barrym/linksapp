@@ -1,4 +1,4 @@
-= image_tag current_user.image
+= image_tag current_user.avatar.url(:large)
 = form_for(Comment.new, :url => link_comments_path(@link), :remote => true, :id => 'new-comment-form') do |f|
   %fieldset
     #errors{:style => 'display:none'}

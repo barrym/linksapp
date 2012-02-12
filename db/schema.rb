@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120207220453) do
+ActiveRecord::Schema.define(:version => 20120212141320) do
 
   create_table "comments", :force => true do |t|
     t.integer  "link_id"
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(:version => 20120207220453) do
     t.string   "twitter_oauth_secret"
     t.string   "nickname"
     t.string   "name"
-    t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "links_count"
@@ -82,6 +81,10 @@ ActiveRecord::Schema.define(:version => 20120207220453) do
     t.integer  "comments_count"
     t.boolean  "show_welcome",                          :default => true
     t.string   "invite_code"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_uploaded_at"
   end
 
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

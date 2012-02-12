@@ -14,7 +14,8 @@ class UsersController < ApplicationController
       :email       => params[:email],
       :nickname    => params[:nickname],
       :password    => params[:password],
-      :invite_code => params[:invite_code]
+      :invite_code => params[:invite_code],
+      :avatar      => params[:avatar]
     )
     if @user.valid?
       @user.save!
@@ -34,6 +35,15 @@ class UsersController < ApplicationController
     if !params[:password].blank?
       attr.merge!(:password => params[:password])
     end
+
+
+    if !params[:avatar_url].blank?
+      @user.set_avatar_from_url(params[:avatar_url])
+    elsif params[:avatar]
+      attr.merge!(:avatar => params[:avatar])
+    end
+
+    logger.info attr.inspect
 
     @user.attributes = attr
     if @user.valid?

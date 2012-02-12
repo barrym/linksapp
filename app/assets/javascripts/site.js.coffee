@@ -48,5 +48,16 @@ $(
                     , 30000)
             return false
 
+        $('#avatar_type').on 'click', () ->
+            if $('#avatar').is(':hidden')
+                $('#avatar').show()
+                $('#avatar_url').hide()
+                $('#avatar_type').html('use URL')
+            else
+                $('#avatar').hide()
+                $('#avatar_url').show()
+                $('#avatar_type').html('upload a file')
+            return false
+
 
 )

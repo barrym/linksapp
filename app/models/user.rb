@@ -17,7 +17,26 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable #, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :twitter_uid, :twitter_oauth_token, :twitter_oauth_secret, :nickname, :name, :image, :show_welcome, :invite_code
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :twitter_uid,
+                  :twitter_oauth_token, :twitter_oauth_secret, :nickname, :name, :image,
+                  :show_welcome, :invite_code, :avatar
+
+  has_attached_file :avatar,
+    :styles => {
+      :small    => "16x16>",
+      :medium   => "24x24>",
+      :large    => "48x48>",
+    },
+    :convert_options => {
+      :all         => '-auto-orient'
+    },
+    :storage        => :s3,
+    :bucket         => 'barrymitchelson_linksapp_us',
+    :path           => "images/:id/:style/:filename",
+    :s3_credentials => {
+      :access_key_id     => ENV['S3_KEY'],
+      :secret_access_key => ENV['S3_SECRET']
+  }
 
   def invite_code_is_valid
     if self.invite_code != 'blahblahblah'
@@ -29,6 +48,12 @@ class User < ActiveRecord::Base
     if new_record?
       errors.add(:password, "can't be blank") if self.password.blank?
     end
+  end
+
+  def set_avatar_from_url image_url
+    io = open(URI.parse(image_url))
+    def io.original_filename; base_uri.path.split('/').last; end
+    self.avatar = io.original_filename.blank? ? nil : io
   end
 
 end

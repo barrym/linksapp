@@ -1,6 +1,6 @@
 .comment
   .user
-    = image_tag comment.user.image
+    = image_tag comment.user.avatar.url(:large)
     %h3 #{comment.user.nickname}
   .body
     = comment.body.gsub(/\n/, "<br/>").html_safe
