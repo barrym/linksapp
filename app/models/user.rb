@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :twitter_uid,
-                  :twitter_oauth_token, :twitter_oauth_secret, :nickname, :name, :image,
+                  :twitter_oauth_token, :twitter_oauth_secret, :twitter_nickname, :nickname, :name,
                   :show_welcome, :invite_code, :avatar
 
   has_attached_file :avatar,

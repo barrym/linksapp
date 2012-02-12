@@ -11,3 +11,17 @@
     .control-group
       .controls
         = submit_tag "Save", :class => "btn btn-primary"
+
+.alert.alert-info
+  %h4.alert-heading Twitter
+  - if @user.twitter_uid
+    %p
+      You're linked to
+      = link_to "@#{@user.twitter_nickname}", "http://twitter.com/#{@user.twitter_nickname}"
+  - else
+    %p
+      Linking your account allows you to login via Twitter, and in the future some other awesome features.
+    %p
+      %a{:href => '/auth/twitter?type=link_account', :class => 'btn btn-twitter'}
+        = image_tag('bird_16_blue.png')
+        Link

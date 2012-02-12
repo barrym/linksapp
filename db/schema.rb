@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120212141320) do
+ActiveRecord::Schema.define(:version => 20120212162342) do
 
   create_table "comments", :force => true do |t|
     t.integer  "link_id"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20120212141320) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_uploaded_at"
+    t.string   "twitter_nickname"
   end
 
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true

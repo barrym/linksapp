@@ -18,6 +18,18 @@ class SiteController < ApplicationController
 
     case params[:type]
     when 'link_account'
+        attr = {
+          :twitter_uid          => omniauth['uid'],
+          :twitter_oauth_token  => omniauth['credentials']['token'],
+          :twitter_oauth_secret => omniauth['credentials']['secret'],
+          :twitter_nickname     => omniauth['info']['nickname'],
+        }
+        current_user.attributes = attr
+        if !current_user.avatar?
+          current_user.set_avatar_from_url omniauth['info']['image']
+        end
+        current_user.save!
+        redirect_to edit_user_path(current_user)
     when 'signin'
       user = User.find_by_twitter_uid(omniauth['uid'])
 
@@ -31,33 +43,6 @@ class SiteController < ApplicationController
       render :text => params
     end
 
-    # user = User.find_by_uid(omniauth['uid'])
-
-    # if user
-    #   sign_in_and_redirect(:user, user)
-    # else
-    #   if params[:invite] == 'blahblahblah'
-    #     user = User.find_by_uid(omniauth['uid'])
-    #     if user
-    #       flash[:notice] = "This account has already signed up."
-    #       sign_in_and_redirect(:user, user)
-    #     else
-    #       user = User.new(
-    #         :uid                => omniauth['uid'],
-    #         :oauth_token        => omniauth['credentials']['token'],
-    #         :oauth_token_secret => omniauth['credentials']['secret'],
-    #         :nickname           => omniauth['info']['nickname'],
-    #         :name               => omniauth['info']['name'],
-    #         :image              => omniauth['info']['image']
-    #       )
-    #       user.save!
-    #       sign_in_and_redirect(:user, user)
-    #     end
-    #   else
-    #     flash[:error] = "Sorry, the account #{omniauth['info']['nickname']} isn't registered."
-    #     redirect_to new_user_session_path
-    #   end
-    # end
   end
 
   def no_welcome
