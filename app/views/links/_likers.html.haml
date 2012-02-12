@@ -2,4 +2,4 @@
   %h3 Likers
   %p
     - link.likers.each do |liker|
-      = image_tag liker.image, :id => "liker_#{liker.id}"
+      = image_tag liker.avatar.url(:large), :id => "liker_#{liker.id}"
