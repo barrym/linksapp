@@ -8,8 +8,8 @@ class LikesController < ApplicationController
       @link.likers.delete(current_user)
     else
       @link.likers << current_user
+      @link.update_attributes :updated_at => Time.now
     end
-    @link.update_attributes :updated_at => Time.now
     respond_with(@link.reload)
   end
 
