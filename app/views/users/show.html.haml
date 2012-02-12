@@ -1,10 +1,10 @@
 %div
-  = image_tag @user.image
+  - if @user.avatar?
+    = image_tag @user.avatar.url(:large)
   %h1
-    = @user.name
+    = @user.nickname
 
 %h2 Shared #{pluralize(@user.links_count, 'link')}
 
-.row
-  - @user.links.each do |link|
-    = render link
+%p
+  More coming soon.
