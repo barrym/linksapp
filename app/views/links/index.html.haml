@@ -19,19 +19,23 @@
 .row
   .span6.offset2
     - @links.each do |link|
+      - if (day = link.updated_at.at_beginning_of_day) != @current_day
+        %h1
+          = day.strftime("%A")
+          %small= day.strftime("%e %b")
+        - @current_day = link.updated_at.at_beginning_of_day
       .preview
-        .header
-          %h4{:class => link.is_media? ? 'media' : ''}= link_to link.title, link_path(link)
-          - if link.is_media?
-            = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link)
-        .details
-          #{link_to(link.user.nickname, user_path(link.user))} shared this
+        .details{:class => link.is_media? ? 'media' : ''}
+          %h4= link_to link.title, link_path(link)
+          -# .likes
+          -#   %i.icon-heart
+          -#   #{link.likes_count || 0}
+          -#   %i.icon-comment
+          -#   #{link.comments_count || 0}
+          by #{link_to(link.user.nickname, user_path(link.user))}
           #{distance_of_time_in_words_to_now(link.created_at)} ago
-          .likes
-            %i.icon-heart
-            #{link.likes_count || 0}
-            %i.icon-comment
-            #{link.comments_count || 0}
+        - if link.is_media?
+          = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link)
   .span2
     %p
       Marfa wes anderson letterpress, seitan bushwick gentrify mumblecore raw denim fanny pack ethnic helvetica put a bird on it wolf. Fingerstache fap food truck, 8-bit carles vegan banksy ethnic viral lo-fi. Messenger bag iphone post-ironic kale chips, photo booth biodiesel brooklyn put a bird on it VHS. Lomo vice twee, selvage bespoke fingerstache kogi. Salvia marfa wes anderson twee occupy, mustache keffiyeh ethical high life quinoa selvage forage trust fund godard. Vegan flexitarian carles sriracha readymade, mixtape mcsweeney's banksy. PBR DIY occupy, raw denim salvia kale chips mlkshk sartorial farm-to-table trust fund you probably haven't heard of them skateboard godard locavore.
