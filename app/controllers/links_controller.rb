@@ -27,6 +27,9 @@ class LinksController < ApplicationController
   def index
     # @links = Link.by_day
     @links = Link.order('updated_at desc').includes(:source, :user)
+    @total_links = Link.count
+    @random_video_link = Link.where(:is_video => true).first(:offset => rand(Link.where(:is_video => true).count))
+    @random_image_link = Link.where(:is_image => true).first(:offset => rand(Link.where(:is_image => true).count))
     respond_with @links
   end
 
