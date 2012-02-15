@@ -16,37 +16,28 @@
     %p
       = link_to "OK, got it. Never show me this again.", no_welcome_path, :remote => true, :class => "btn btn-success", :id => 'ok'
 
-- @links.each do |day, links|
-  .day
-    %h1
-      = day.strftime("%A")
-      %small= day.strftime("%e %b")
-    .row
-      .span12
-        .row
-          .span6
-            .row
-              - links[:article].each do |link|
-                .span6.preview.article
-                  .inner
-                    %h4=link_to link.title, link_path(link)
-                    .details
-                      #{link_to(link.user.nickname, user_path(link.user))} shared this
-                      #{distance_of_time_in_words_to_now(link.created_at)} ago
-                      .likes
-                        %i.icon-heart
-                        #{link.likes_count || 0}
-                        %i.icon-comment
-                        #{link.comments_count || 0}
-          .span6
-            %ul.thumbnails
-              - links[:media].each do |link|
-                %li.span2
-                  .thumbnail
-                    - if link.is_video?
-                      .video
-                        %h4= link_to link.title, link_path(link)
-                        = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
-                    - else
-                      = link_to image_tag(link.image.url(:thumbnail)), link_path(link)
-
+.row
+  .span6.offset2
+    - @links.each do |link|
+      .preview
+        .header
+          %h4{:class => link.is_media? ? 'media' : ''}= link_to link.title, link_path(link)
+          - if link.is_media?
+            = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link)
+        .details
+          #{link_to(link.user.nickname, user_path(link.user))} shared this
+          #{distance_of_time_in_words_to_now(link.created_at)} ago
+          .likes
+            %i.icon-heart
+            #{link.likes_count || 0}
+            %i.icon-comment
+            #{link.comments_count || 0}
+  .span2
+    %p
+      Marfa wes anderson letterpress, seitan bushwick gentrify mumblecore raw denim fanny pack ethnic helvetica put a bird on it wolf. Fingerstache fap food truck, 8-bit carles vegan banksy ethnic viral lo-fi. Messenger bag iphone post-ironic kale chips, photo booth biodiesel brooklyn put a bird on it VHS. Lomo vice twee, selvage bespoke fingerstache kogi. Salvia marfa wes anderson twee occupy, mustache keffiyeh ethical high life quinoa selvage forage trust fund godard. Vegan flexitarian carles sriracha readymade, mixtape mcsweeney's banksy. PBR DIY occupy, raw denim salvia kale chips mlkshk sartorial farm-to-table trust fund you probably haven't heard of them skateboard godard locavore.
+    %p
+      Food truck readymade seitan, four loko 8-bit skateboard wayfarers art party swag ennui yr. Cliche synth mustache salvia echo park sartorial. Vegan flexitarian umami, odd future banksy cray cardigan kogi. Cray shoreditch vegan, leggings vinyl seitan +1. Put a bird on it high life 8-bit, salvia echo park seitan mcsweeney's hoodie. Biodiesel ethical umami, tumblr four loko bushwick semiotics. Cosby sweater semiotics truffaut, letterpress mixtape Austin american apparel irony.
+    %p
+      Mcsweeney's pinterest put a bird on it, cliche PBR beard fingerstache tofu sustainable bicycle rights wayfarers hoodie leggings. Artisan salvia semiotics, mlkshk sartorial brunch thundercats polaroid banh mi pour-over locavore gluten-free sriracha chambray. Forage single-origin coffee fap pork belly locavore, ethical salvia fixie tattooed. Dreamcatcher jean shorts twee you probably haven't heard of them, 8-bit seitan brooklyn tofu ethical squid flexitarian viral street art. Austin street art authentic ennui lomo, mixtape leggings aesthetic vice lo-fi. Craft beer pop-up authentic wes anderson hoodie vegan, selvage +1 helvetica four loko. Keffiyeh hoodie keytar odd future, pitchfork kogi sartorial shoreditch stumptown organic helvetica quinoa.
+    %p
+      Mumblecore gluten-free single-origin coffee master cleanse. Terry richardson cliche pitchfork keffiyeh iphone. Cliche irony polaroid salvia portland. Banh mi lomo PBR, tofu synth 3 wolf moon small batch dreamcatcher messenger bag mumblecore fanny pack occupy. Pop-up forage Austin, craft beer readymade master cleanse blog brunch. Organic single-origin coffee ethical, forage food truck thundercats etsy godard brunch irony sartorial american apparel kale chips direct trade craft beer. Banh mi high life chambray beard hoodie, vegan terry richardson odd future yr fap sartorial cliche williamsburg narwhal scenester.

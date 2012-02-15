@@ -40,12 +40,8 @@ class Link < ActiveRecord::Base
     result = {}
     Link.order('updated_at desc').includes(:source, :user).each do |link|
       time = link.updated_at.at_beginning_of_day
-      result[time] ||= {:media => [], :article => []}
-      if link.is_image? || link.is_video?
-        result[time][:media] << link
-      else
-        result[time][:article] << link
-      end
+      result[time] ||= []
+      result[time] << link
     end
     result
   end

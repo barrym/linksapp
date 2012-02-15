@@ -25,7 +25,8 @@ class LinksController < ApplicationController
   end
 
   def index
-    @links = Link.by_day
+    # @links = Link.by_day
+    @links = Link.order('updated_at desc').includes(:source, :user)
     respond_with @links
   end
 

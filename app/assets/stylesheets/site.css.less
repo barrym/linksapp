@@ -5,8 +5,8 @@
 @import "elements";
 
 body {
-    padding-top: 50px;
-    /* background-color: #ECEDE7; */
+    /* padding-top: 50px; */
+    /* background-color: #d5d5d5; */
     background-image: url("bg.png");
 }
 
@@ -44,8 +44,8 @@ form.signin {
 .link {
     .drop-shadow(0, 1px, 2px, 0.2);
     .rounded(5px);
-    margin-bottom:10px;
     background-color: #fff;
+    margin-bottom:10px;
     overflow:auto;
 
     .inner {
@@ -58,112 +58,36 @@ form.signin {
 
 }
 
-.day {
-    /* background-color: #ddddff; */
-    margin-bottom: 20px;
-
-    .thumbnail {
-        background-color: #fff;
-
-        img {
-            opacity: 1.0;
-            .transition-duration(0.4s);
-        }
-
-        h4 {
-            position: absolute;
-            z-index: 8;
-            /* color: #ffffff; */
-            /* text-shadow: #000000 1px 1px 0px; */
-            width: 140px;
-            /* height: 150px; */
-            .opacity(0);
-            .transition-duration(0.4s);
-        }
-    }
-    .thumbnail:hover {
-        .transition-duration(0.4s);
-
-        .video {
-            img {
-                opacity: 0.3;
-            }
-
-            h4 {
-              opacity: 1.0;
-              text-decoration:none;
-            }
-        }
-    }
-}
-
-.likes {
-    float:right;
-    .opacity(0.3);
-}
-
-
 .preview {
     .drop-shadow(0, 1px, 2px, 0.2);
     .rounded(5px);
-
-    &.media {
-        margin-bottom:20px;
-    }
-
-    &.article {
-        margin-bottom:10px;
-        line-height:20px;
-
-    }
-
     background-color: #fff;
+    padding:10px;
 
-    .inner {
-        margin: 10px;
+    margin-bottom:10px;
+    line-height:20px;
 
-        .title {
-            height: 140px;
-            h3 {
-                line-height: 33px;
-                font-size:22px;
-            }
+    .header {
+        /* border: 1px solid blue; */
+        overflow:auto;
+    }
 
-            .video {
-                img {
-                    opacity: 1.0;
-                    .transition-duration(0.4s);
-                }
-
-
-                h3 a {
-                  position: absolute;
-                  z-index: 8;
-                  /* color: #ffffff; */
-                  /* text-shadow: #000000 1px 1px 0px; */
-                  width: 250px;
-                  /* height: 150px; */
-                  opacity: 0;
-                  .transition-duration(0.4s);
-                }
-            }
-
+    h4 {
+        &.media {
+            max-width:70%;
         }
+        float:left;
+    }
 
-        .title:hover {
-            .transition-duration(0.4s);
+    img.media {
+        max-width:30%;
+        float:right;
+        .rounded(5px);
+    }
 
-            .video {
-                img {
-                    opacity: 0.3;
-                }
-
-                h3 a {
-                  opacity: 1.0;
-                  text-decoration:none;
-                }
-            }
-        }
+    .likes {
+        float:right;
+        .opacity(0.3);
     }
 }
 
