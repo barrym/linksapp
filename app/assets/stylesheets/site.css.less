@@ -6,7 +6,7 @@
 
 body {
     padding-top: 10px;
-    background-color: #98C6C2;
+    background-color: #7FB5C5;
     /* background-image: url("bg.png"); */
 }
 
@@ -27,9 +27,14 @@ body {
 .header {
     .drop-shadow(0, 1px, 2px, 0.2);
     .rounded(5px);
-    background-color: #fff;
+    background-color: #069ACE;
     margin-bottom:10px;
     padding:10px;
+
+    a {
+        color:#fff;
+        font-size:1.5em;
+    }
 }
 
 .hero-unit {
@@ -85,15 +90,29 @@ form.signin {
     /* line-height:20px; */
     overflow:auto;
 
-    .details {
+    padding-bottom:5px;
+    border-bottom: 1px solid #d5d5d5;
+
+    .submitter {
         float:left;
+        max-width:10%;
+        img {
+            .rounded(5px);
+        }
+    }
+
+    .details {
+        /* background-color:red; */
+        padding-left:10px;
+        float:left;
+        max-width:85%;
         &.media {
-            max-width:70%;
+            max-width:65%;
         }
     }
 
     img.media {
-        max-width:30%;
+        max-width:20%;
         float:right;
         .rounded(5px);
     }
@@ -101,16 +120,14 @@ form.signin {
     .reaction {
         .opacity(0.5);
         .rounded(10px);
-        /* background-color:#B2E0DA; */
-        background-color:#A5A5E1;
-        float: left;
+        background-color:#B2E0DA;
+        /* background-color:#A5A5E1; */
+        /* float: left; */
         padding:0 8px 0 8px;
         margin-right:5px;
 
         &.some {
             .opacity(1.0);
-            /* background-color:#A6B3C6; */
-            /* color:#fff; */
         }
     }
 }

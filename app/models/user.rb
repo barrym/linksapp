@@ -23,11 +23,13 @@ class User < ActiveRecord::Base
 
   has_attached_file :avatar,
     :styles => {
+      :square   => "48x48^",
       :small    => "16x16>",
       :medium   => "24x24>",
       :large    => "48x48>",
     },
     :convert_options => {
+      :square      => "-gravity center -extent 48x48",
       :all         => '-auto-orient'
     },
     :storage        => :s3,
