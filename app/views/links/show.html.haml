@@ -22,10 +22,12 @@
       - else
         = link_to "Like", link_likes_path(@link), :remote => true, :method => :post, :class => "btn", :id => 'like'
 
-      = link_to "Tweet", @link.twitter_share_url_for(current_user), :class => "btn popup"
+      %a.btn.popup.btn-twitter{:href => @link.twitter_share_url_for(current_user)}
+        = image_tag('bird_16_blue.png')
+        Tweet
       = link_to "Instapaper", "http://www.instapaper.com/hello2?url=#{CGI.escape(@link.url)}&title=#{CGI.escape(@link.title)}", :class => "btn"
-      %a.btn.disabled Favourite
-      %a.btn.disabled Email
+      -# %a.btn.disabled Favourite
+      -# %a.btn.disabled Email
 
     #likers
       = render :partial => 'links/likers', :locals => {:link => @link}
