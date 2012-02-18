@@ -21,16 +21,22 @@ class LinksController < ApplicationController
 
   def show
     @link = Link.find(params[:id])
-    respond_with @link
+    if stale?(:last_modified => @link.updated_at.utc, :etag => [@link, current_user])
+      respond_with @link
+    end
   end
 
   def index
-    # @links = Link.by_day
     @links = Link.order('updated_at desc').includes(:source, :user)
     @total_links = Link.count
+    #TODO: move this shit to somewhere else, how does this affect etags?
     @random_video_link = Link.where(:is_video => true).first(:offset => rand(Link.where(:is_video => true).count))
     @random_image_link = Link.where(:is_image => true).first(:offset => rand(Link.where(:is_image => true).count))
-    respond_with @links
+    logger.info @links.first.updated_at.utc
+    if stale?(:last_modified => @links.first.updated_at.utc, :etag => [@links.first, current_user])
+      logger.info "stale"
+      respond_with @links
+    end
   end
 
 end
