@@ -6,7 +6,7 @@ class LikesController < ApplicationController
     @link = Link.find(params[:link_id])
     if @link.liked_by?(current_user)
       @link.likers.delete(current_user)
-      @link.touch
+      # @link.touch # TODO: when adding caching this'll have to invalidate the cache here or something
     else
       @link.likers << current_user
     end
