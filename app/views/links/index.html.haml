@@ -16,39 +16,23 @@
     %p
       = link_to "OK, got it. Never show me this again.", no_welcome_path, :remote => true, :class => "btn btn-success", :id => 'ok'
 
-.row
-  .span6.offset2
-    - @links.each do |link|
-      - if (day = link.updated_at.at_beginning_of_day) != @current_day
-        %h1
-          = day.strftime("%A")
-          %small= day.strftime("%e %b")
-        - @current_day = link.updated_at.at_beginning_of_day
-      .preview
-        .details{:class => link.is_media? ? 'media' : ''}
-          %h4= link_to link.title, link_path(link)
-          %p= link.source.display_name
-          %p
-            %span.reaction{:class => (link.likes_count > 0 ? 'some': '')}
-              = pluralize(link.likes_count, 'like')
-            %span.reaction{:class => (link.comments_count > 0 ? 'some': '')}
-              = pluralize(link.comments_count, 'comment')
-          -# %p
-          -#   by #{link_to(link.user.nickname, user_path(link.user))}
-          -#   #{distance_of_time_in_words_to_now(link.created_at)} ago
-        - if link.is_media?
-          = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link)
-  .span2.sidebar
-    .user
-      %h3= link_to current_user.nickname, user_path(current_user)
-      - if current_user.avatar?
-        = image_tag current_user.avatar.url(:large)
-        %ul
-          %li= link_to "Your profile", user_path(current_user)
-          %li= link_to "Your account", edit_user_path(current_user)
-          %li= link_to "Sign out", destroy_user_session_path, :method => :delete
-    .stats
-      %h4 Random
-      = link_to image_tag(@random_video_link.image.url(:thumbnail)), link_path(@random_video_link)
-      = link_to image_tag(@random_image_link.image.url(:thumbnail)), link_path(@random_image_link)
-      #{pluralize(@total_links, 'link')} have been shared.
+- @links.each do |link|
+  - if (day = link.updated_at.at_beginning_of_day) != @current_day
+    %h1
+      = day.strftime("%A")
+      %small= day.strftime("%e %b")
+    - @current_day = link.updated_at.at_beginning_of_day
+  .preview
+    .details{:class => link.is_media? ? 'media' : ''}
+      %h4= link_to link.title, link_path(link)
+      %p= link.source.display_name
+      %p
+        %span.reaction{:class => (link.likes_count > 0 ? 'some': '')}
+          = pluralize(link.likes_count, 'like')
+        %span.reaction{:class => (link.comments_count > 0 ? 'some': '')}
+          = pluralize(link.comments_count, 'comment')
+      -# %p
+      -#   by #{link_to(link.user.nickname, user_path(link.user))}
+      -#   #{distance_of_time_in_words_to_now(link.created_at)} ago
+    - if link.is_media?
+      = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link)

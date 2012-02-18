@@ -107,23 +107,26 @@ class Link < ActiveRecord::Base
 
   # TODO: this should probably be in source as well
   def youtube_embed_code(size)
+    width, height = video_embed_size(size)
+    "<iframe id='embedded_video' width='#{width}' height='#{height}' src='http://www.youtube.com/embed/#{self.params['v'][0]}?autohide=1&hd=1&border=1&showinfo=0' frameborder='0' allowfullscreen></iframe>".html_safe
+  end
+
+  def vimeo_embed_code(size)
+    width, height = video_embed_size(size)
+    "<iframe id='embedded_video' src=\"http://player.vimeo.com/video/#{self.vimeo_id}?title=0&byline=0&portrait=0\" width=\"#{width}\" height=\"#{height}\" frameborder=\"0\"></iframe>".html_safe
+  end
+
+  def video_embed_size(size)
     case size
     when :default
       width, height = 420, 315
     when :small
       width, height = 280, 236
     when :large
-      width, height = 900, 520
+      # width, height = 900, 520
+      width, height = 700, 404
     end
-    "<iframe width='#{width}' height='#{height}' src='http://www.youtube.com/embed/#{self.params['v'][0]}?autohide=1&hd=1&border=1&showinfo=0' frameborder='0' allowfullscreen></iframe>".html_safe
-  end
-
-  def vimeo_embed_code(size)
-    case size
-    when :large
-      width, height = 900, 520
-    end
-    "<iframe src=\"http://player.vimeo.com/video/#{self.vimeo_id}?title=0&byline=0&portrait=0\" width=\"#{width}\" height=\"#{height}\" frameborder=\"0\"></iframe>".html_safe
+    [width, height]
   end
 
   def set_source
