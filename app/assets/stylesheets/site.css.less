@@ -6,8 +6,8 @@
 
 body {
     /* padding-top: 50px; */
-    /* background-color: #d5d5d5; */
-    background-image: url("bg.png");
+    background-color: #98C6C2;
+    /* background-image: url("bg.png"); */
 }
 
 /* body > .container { */
@@ -64,8 +64,8 @@ form.signin {
     background-color: #fff;
     padding:10px;
 
-    margin-bottom:10px;
-    line-height:20px;
+    margin-bottom:5px;
+    /* line-height:20px; */
     overflow:auto;
 
     .details {
@@ -81,29 +81,40 @@ form.signin {
         .rounded(5px);
     }
 
-    .likes {
-        /* background-color:blue; */
-        /* float:left; */
-        /* float:right; */
-        .opacity(0.3);
+    .reaction {
+        .opacity(0.5);
+        .rounded(10px);
+        /* background-color:#B2E0DA; */
+        background-color:#A5A5E1;
+        float: left;
+        padding:0 8px 0 8px;
+        margin-right:5px;
+
+        &.some {
+            .opacity(1.0);
+            /* background-color:#A6B3C6; */
+            /* color:#fff; */
+        }
     }
 }
 
-.user {
-    margin-top:40px;
-    .drop-shadow(0, 1px, 2px, 0.2);
-    .rounded(5px);
-    background-color: #fff;
-    padding:10px;
-    margin-bottom: 10px;
-}
+.sidebar {
+    .user {
+        margin-top:40px;
+        .drop-shadow(0, 1px, 2px, 0.2);
+        .rounded(5px);
+        background-color: #fff;
+        padding:10px;
+        margin-bottom: 10px;
+    }
 
-.stats {
-    .drop-shadow(0, 1px, 2px, 0.2);
-    .rounded(5px);
-    background-color: #fff;
-    padding:10px;
-    margin-bottom: 10px;
+    .stats {
+        .drop-shadow(0, 1px, 2px, 0.2);
+        .rounded(5px);
+        background-color: #fff;
+        padding:10px;
+        margin-bottom: 10px;
+    }
 }
 
 #comments {
@@ -173,8 +184,8 @@ img.small {
 
 
 @media (max-width: 768px) {
-    .link.preview {
-       background-color: #ddffdd;
+    .preview {
+       /* background-color: #ddffdd; */
     }
     body {
         padding-top: 0;

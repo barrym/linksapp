@@ -46,6 +46,14 @@ class Link < ActiveRecord::Base
   #   result
   # end
 
+  def likes_count
+    read_attribute(:likes_count) || 0
+  end
+
+  def comments_count
+    read_attribute(:comments_count) || 0
+  end
+
   def parse
     set_source
     clean_title!
