@@ -27,13 +27,19 @@ class LinksController < ApplicationController
   end
 
   def index
-    @links = Link.order('updated_at desc').includes(:source, :user)
+    @links = {}
+    Link.order('updated_at desc').includes(:source, :user).each do |link|
+      logger.info link.updated_at.at_beginning_of_day
+      time = link.updated_at.at_beginning_of_day
+      @links[time] ||= []
+      @links[time] << link
+    end
 
     # @total_links = Link.count
     # @random_video_link = Link.where(:is_video => true).first(:offset => rand(Link.where(:is_video => true).count))
     # @random_image_link = Link.where(:is_image => true).first(:offset => rand(Link.where(:is_image => true).count))
 
-    logger.info @links.first.updated_at.utc
+    # logger.info @links.first.updated_at.utc
     # if stale?(:last_modified => @links.first.updated_at.utc, :etag => [@links.first, current_user])
       logger.info "stale"
       respond_with @links
