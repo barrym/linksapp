@@ -24,7 +24,7 @@
     - links.each do |link|
       .preview
         .details{:class => link.is_media? ? 'media' : ''}
-          %h4= link_to link.title, link_path(link)
+          %h4= link_to link.title, link_path(link), :class => 'pjax'
           %p= link.source.display_name
           %p
             %span.reaction{:class => (link.likes_count > 0 ? 'some': '')}
@@ -35,4 +35,4 @@
           -#   by #{link_to(link.user.nickname, user_path(link.user))}
           -#   #{distance_of_time_in_words_to_now(link.created_at)} ago
         - if link.is_media?
-          = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link)
+          = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link), :class => 'pjax'

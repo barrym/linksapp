@@ -29,7 +29,6 @@ class LinksController < ApplicationController
   def index
     @links = {}
     Link.order('updated_at desc').includes(:source, :user).each do |link|
-      logger.info link.updated_at.at_beginning_of_day
       time = link.updated_at.at_beginning_of_day
       @links[time] ||= []
       @links[time] << link

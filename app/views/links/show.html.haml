@@ -10,9 +10,9 @@
       = image_tag(@link.image.url(:website_main))
 
     %p
-      = link_to @link.user.nickname, user_path(@link.user)
+      = link_to @link.user.nickname, user_path(@link.user), :class => 'pjax'
       shared this #{distance_of_time_in_words_to_now(@link.created_at)} ago
-      from #{link_to(@link.source.display_name, source_path(@link.source))}
+      from #{link_to(@link.source.display_name, source_path(@link.source), :class => 'pjax')}
       - if @link.source.links_count > 1
         ( #{pluralize(@link.source.links_count - 1, 'more link')} )
 
