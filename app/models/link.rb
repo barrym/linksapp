@@ -43,6 +43,10 @@ class Link < ActiveRecord::Base
   #   result
   # end
 
+  def self.most_recently_updated
+    self.order(:updated_at).last
+  end
+
   def likes_count
     read_attribute(:likes_count) || 0
   end
