@@ -27,11 +27,16 @@ class LinksController < ApplicationController
   end
 
   def index
-    @links = {}
-    Link.order('updated_at desc').includes(:source, :user).each do |link|
-      time = link.updated_at.at_beginning_of_day
-      @links[time] ||= []
-      @links[time] << link
+    @index_cache_key = ["links", "all", Link.most_recently_updated]
+    # TODO: maybe switch all this to the Linki model, and autoflush cache on update?
+    @links = Rails.cache.fetch @index_cache_key do
+      links = {}
+      Link.order('updated_at desc').each do |link|
+        time = link.updated_at.at_beginning_of_day
+        links[time] ||= []
+        links[time] << link
+      end
+      links
     end
 
     # @total_links = Link.count
