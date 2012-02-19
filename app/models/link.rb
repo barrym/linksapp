@@ -33,16 +33,6 @@ class Link < ActiveRecord::Base
       :secret_access_key => ENV['S3_SECRET']
   }
 
-  # def self.by_day
-  #   result = {}
-  #   Link.order('updated_at desc').includes(:source, :user).each do |link|
-  #     time = link.updated_at.at_beginning_of_day
-  #     result[time] ||= []
-  #     result[time] << link
-  #   end
-  #   result
-  # end
-
   def self.most_recently_updated
     self.order(:updated_at).last
   end

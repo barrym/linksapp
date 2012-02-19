@@ -28,20 +28,7 @@ class LinksController < ApplicationController
 
   def index
     @index_cache_key = ["links", "all", Link.most_recently_updated]
-    # TODO: maybe switch all this to the Linki model, and autoflush cache on update?
-    @links = Rails.cache.fetch @index_cache_key do
-      links = {}
-      Link.order('updated_at desc').each do |link|
-        time = link.updated_at.at_beginning_of_day
-        links[time] ||= []
-        links[time] << link
-      end
-      links
-    end
-
-    # @total_links = Link.count
-    # @random_video_link = Link.where(:is_video => true).first(:offset => rand(Link.where(:is_video => true).count))
-    # @random_image_link = Link.where(:is_image => true).first(:offset => rand(Link.where(:is_image => true).count))
+    @links = Link.order('updated_at desc').page(params[:page]).per(20)
 
     # logger.info @links.first.updated_at.utc
     # if stale?(:last_modified => @links.first.updated_at.utc, :etag => [@links.first, current_user])
