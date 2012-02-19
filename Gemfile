@@ -15,7 +15,7 @@ group :assets do
 end
 gem 'coffee-rails', '~> 3.1.1'
 gem 'less-rails'
-# gem 'jquery-rails'
+gem 'jquery-rails'
 
 
 # To use ActiveModel has_secure_password

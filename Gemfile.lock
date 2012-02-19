@@ -66,6 +66,9 @@ GEM
       multi_json
       multi_xml
     i18n (0.6.0)
+    jquery-rails (1.0.19)
+      railties (~> 3.0)
+      thor (~> 0.14)
     json (1.6.5)
     kaminari (0.13.0)
       actionpack (>= 3.0.0)
@@ -177,6 +180,7 @@ DEPENDENCIES
   dalli
   devise
   haml
+  jquery-rails
   kaminari
   less-rails
   modernizr-rails
