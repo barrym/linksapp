@@ -1,0 +1,21 @@
+- cache ["v2", link, link.user] do
+  .preview
+    .submitter
+      = image_tag link.user.avatar.url(:square)
+    .details{:class => link.is_media? ? 'media' : ''}
+      %h4
+        = link_to link.title, link_path(link), :class => 'pjax'
+      %div= link.source.display_name
+      %div
+        %span.reaction{:class => (link.likes_count > 0 ? 'some': '')}
+          -# %i.icon-heart
+          -# = link.likes_count
+          = pluralize(link.likes_count, 'like')
+        %span.reaction{:class => (link.comments_count > 0 ? 'some': '')}
+          -# %i.icon-comment
+          -# = link.comments_count
+          = pluralize(link.comments_count, 'comment')
+        %span.minor
+          %span.timeago{:title => link.updated_at.to_time.iso8601}
+    - if link.is_media?
+      = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link), :class => 'pjax'
