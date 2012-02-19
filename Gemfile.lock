@@ -49,6 +49,7 @@ GEM
     commonjs (0.2.0)
       therubyracer (~> 0.9.9)
     daemons (1.1.5)
+    dalli (1.1.4)
     devise (1.5.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -172,6 +173,7 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   coffee-rails (~> 3.1.1)
+  dalli
   devise
   haml
   jquery-rails
