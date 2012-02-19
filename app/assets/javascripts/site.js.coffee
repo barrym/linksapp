@@ -35,7 +35,7 @@ $(
                 $('#bookmarklet-help').show('blind')
             return false
 
-        # $('a.pjax').pjax('#main')
+        $('a.pjax').pjax('#main')
 
         $('.bookmarklet').tooltip({placement:'top', title:'Drag me'})
 
