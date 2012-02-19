@@ -27,7 +27,7 @@ class LinksController < ApplicationController
   end
 
   def index
-    @index_cache_key = ["links", "all", Link.most_recently_updated]
+    # @index_cache_key = ["links", "all", Link.most_recently_updated]
     @links = Link.order('updated_at desc').page(params[:page]).per(20)
 
     # logger.info @links.first.updated_at.utc
