@@ -1,5 +1,6 @@
 !!!
-%html{:manifest => "/#{Rails.env}.appcache"}
+%html
+  -# {:manifest => "/#{Rails.env}.appcache"}
   %head>
     %title Linksapp
     = stylesheet_link_tag    "application"
