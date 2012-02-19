@@ -35,7 +35,9 @@ $(
                 $('#bookmarklet-help').show('blind')
             return false
 
+        alert('pre pjax')
         $('a.pjax').pjax('#main')
+        alert('after pjax')
 
         $('.bookmarklet').tooltip({placement:'top', title:'Drag me'})
 
@@ -62,4 +64,5 @@ $(
             return false
 
 
+        alert('end of')
 )
