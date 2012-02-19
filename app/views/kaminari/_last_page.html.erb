@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <li class="last next">
-  <%= link_to_unless current_page.last?, 'Last', url, {:remote => remote} %>
+  <%= link_to_unless current_page.last?, 'Last', url, {:remote => remote, :class => 'pjax'} %>
 </li>

@@ -7,5 +7,5 @@
     remote:        data-remote
 -%>
 <li class="prev">
-  <%= link_to_unless current_page.first?, raw('&laquo; Newer'), url, :rel => 'prev', :remote => remote %>
+<%= link_to_unless current_page.first?, raw('&laquo; Newer'), url, :rel => 'prev', :remote => remote, :class => 'pjax' %>
 </li>
