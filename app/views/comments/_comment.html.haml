@@ -5,4 +5,6 @@
       = link_to comment.user.nickname, user_path(comment.user), :class => 'pjax'
   .body
     = comment.body.gsub(/\n/, "<br/>").html_safe
-  .minor #{distance_of_time_in_words_to_now(comment.created_at)} ago
+  .minor
+    %span.timeago{:title => comment.created_at.to_time.iso8601}
+    -# The above JS timeago is refreshed by the inline js in the link/show.html

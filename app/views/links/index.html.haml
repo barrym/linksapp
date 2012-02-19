@@ -39,6 +39,9 @@
               -# = link.comments_count
               = pluralize(link.comments_count, 'comment')
             %span.minor
-              #{distance_of_time_in_words_to_now(link.updated_at)} ago
+              %span.timeago{:title => link.updated_at.to_time.iso8601}
         - if link.is_media?
           = link_to image_tag(link.image.url(:thumbnail), :class => 'media'), link_path(link), :class => 'pjax'
+
+:javascript
+  $($('.timeago').timeago());
