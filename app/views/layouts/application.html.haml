@@ -11,40 +11,43 @@
     %meta(name="apple-mobile-web-app-capable" content="yes")
     %meta(name="apple-mobile-web-app-status-bar-style" content="black")
   %body
+    .header-hack
     .container
       .content
         .row
           .span10.offset1
             .header
-              = link_to 'linksapp', root_path, :class => 'pjax'
-        .row
-          .span8.offset1
-            #alerts
-              - if flash[:notice]
-                .alert.alert-info
-                  = flash[:notice]
-              - if flash[:error]
-                .alert.alert-error
-                  = flash[:error]
-              - if flash[:success]
-                .alert.alert-success
-                  = flash[:success]
-              - if flash[:alert] && flash[:alert] != 'You need to sign in or sign up before continuing.'
-                .alert.alert-error
-                  = flash[:alert]
-            #main
-              =yield
-          .span2
-            .sidebar
-              - if user_signed_in?
-                .user
-                  %h3= link_to current_user.nickname, user_path(current_user), :class => 'pjax'
-                  - if current_user.avatar?
-                    = image_tag current_user.avatar.url(:large)
-                  %ul
-                    %li= link_to "Your profile", user_path(current_user), :class => 'pjax'
-                    %li= link_to "Your account", edit_user_path(current_user), :class => 'pjax'
-                    %li= link_to "Sign out", destroy_user_session_path, :method => :delete
+              -# = image_tag('logo.png')
+              %h2 Linksapp
+            .row
+              .span8
+                #alerts
+                  - if flash[:notice]
+                    .alert.alert-info
+                      = flash[:notice]
+                  - if flash[:error]
+                    .alert.alert-error
+                      = flash[:error]
+                  - if flash[:success]
+                    .alert.alert-success
+                      = flash[:success]
+                  - if flash[:alert] && flash[:alert] != 'You need to sign in or sign up before continuing.'
+                    .alert.alert-error
+                      = flash[:alert]
+                #main
+                  =yield
+              .span2
+                .sidebar
+                  - if user_signed_in?
+                    .user
+                      - if current_user.avatar?
+                        = image_tag current_user.avatar.url(:square)
+                      %ul.nav.nav-list
+                        %li.nav-header
+                          = current_user.nickname
+                        %li= link_to "Your profile", user_path(current_user), :class => 'pjax'
+                        %li= link_to "Your account", edit_user_path(current_user), :class => 'pjax'
+                        %li= link_to "Sign out", destroy_user_session_path, :method => :delete
 
   :javascript
     $($('.dropdown-toggle').dropdown())

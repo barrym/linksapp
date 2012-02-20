@@ -61,5 +61,12 @@ $(
                 $('#avatar_type').html('upload a file')
             return false
 
+        $('.header').on 'click', () ->
+            $.pjax({
+                url:'/',
+                container:'#main'
+            })
+            return false
+
 
 )

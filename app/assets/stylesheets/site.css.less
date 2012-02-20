@@ -4,29 +4,42 @@
 
 @import "elements";
 
-body {
-    padding-top: 5px;
-    /* background-color: #7FB5C5; */
-    /* background-color: #d5d5d5; */
-    /* background-image: url("bg.png"); */
-}
-
 /* body > .container { */
 /*     background-color: #ccffcc; */
 /* } */
 
 .header {
-    .drop-shadow(0, 1px, 2px, 0.2);
+    /* .drop-shadow(0, 1px, 2px, 0.2); */
     /* .rounded(5px); */
-    background-color: #069ACE;
+    /* background-color: #069ACE; */
     /* background-color: #000; */
-    margin-bottom:10px;
+    /* margin-bottom:10px; */
     padding:10px;
+    cursor:pointer;
 
-    a {
-        color:#fff;
-        font-size:1.5em;
+    img {
+        float:left;
+        max-height:25px;
+        margin-right:10px;
     }
+
+    h2 {
+        float:left;
+        color:#fff;
+    }
+
+    width:100%;
+    overflow:auto;
+
+}
+
+.header-hack {
+    position:absolute;
+    z-index:-10;
+    width:100%;
+    background-color:#069ACE;
+    padding-top:60px;
+
 }
 
 .hero-unit {
@@ -47,9 +60,9 @@ form.signin {
 }
 
 .link {
-    .drop-shadow(0, 1px, 2px, 0.2);
-    .rounded(5px);
-    background-color: #fff;
+    /* .drop-shadow(0, 1px, 2px, 0.2); */
+    /* .rounded(5px); */
+    /* background-color: #fff; */
     margin-bottom:10px;
     overflow:auto;
 
@@ -64,10 +77,6 @@ form.signin {
 }
 
 .day {
-    /* .drop-shadow(0, 1px, 2px, 0.2); */
-    /* .rounded(5px); */
-    background-color:#fff;
-
     padding:10px;
     margin-bottom:5px;
 
@@ -79,7 +88,7 @@ form.signin {
 .preview {
     /* .drop-shadow(0, 1px, 2px, 0.2); */
     /* .rounded(5px); */
-    background-color: #fff;
+    /* background-color: #fff; */
     padding:5px;
 
     margin-bottom:5px;
@@ -136,20 +145,16 @@ form.signin {
 .sidebar {
     .user {
         /* margin-top:40px; */
-        .drop-shadow(0, 1px, 2px, 0.2);
-        .rounded(5px);
-        background-color: #fff;
-        padding:10px;
+        /* .drop-shadow(0, 1px, 2px, 0.2); */
+        /* .rounded(5px); */
+        padding-top:15px;
         margin-bottom: 10px;
+
+        ul.nav-list {
+            padding-left:0;
+        }
     }
 
-    .stats {
-        .drop-shadow(0, 1px, 2px, 0.2);
-        .rounded(5px);
-        background-color: #fff;
-        padding:10px;
-        margin-bottom: 10px;
-    }
 }
 
 #comments {
@@ -214,15 +219,19 @@ img.small {
 
 .minor {
     color: #777;
-    /* font-size:12px; */
 }
 
-
 @media (max-width: 768px) {
-    .preview {
-       /* background-color: #ddffdd; */
+    .container {
+        padding:0;
     }
-    body {
-        padding-top: 0;
+
+    .day {
+        padding-left:0;
+        padding-right:0;
+    }
+
+    .preview .timeago {
+        display:none;
     }
 }
